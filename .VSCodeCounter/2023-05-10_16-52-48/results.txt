@@ -1,0 +1,72 @@
+Date : 2023-05-10 16:52:48
+Directory : /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce
+Total : 32 files,  4349 codes, 32 comments, 104 blanks, all 4485 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          4 |      3,880 |          0 |          4 |      3,884 |
+| JavaScript         |         24 |        451 |         21 |        100 |        572 |
+| JSON with Comments |          1 |         13 |         11 |          0 |         24 |
+| Ignore             |          1 |          3 |          0 |          0 |          3 |
+| Properties         |          1 |          1 |          0 |          0 |          1 |
+| Markdown           |          1 |          1 |          0 |          0 |          1 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                   |         32 |      4,349 |         32 |        104 |      4,485 |
+| . (Files)                                                                                           |          8 |      3,922 |         19 |         18 |      3,959 |
+| .platform                                                                                           |          1 |          1 |          0 |          0 |          1 |
+| .platform/nginx                                                                                     |          1 |          1 |          0 |          0 |          1 |
+| .platform/nginx/conf.d                                                                              |          1 |          1 |          0 |          0 |          1 |
+| configs                                                                                             |          3 |         23 |          1 |          6 |         30 |
+| controllers                                                                                         |          4 |        129 |          7 |         39 |        175 |
+| middlewares                                                                                         |          3 |         28 |          0 |          7 |         35 |
+| models                                                                                              |          7 |        207 |          1 |         20 |        228 |
+| routes                                                                                              |          2 |          9 |          0 |          5 |         14 |
+| services                                                                                            |          2 |         23 |          0 |          5 |         28 |
+| utils                                                                                               |          2 |          7 |          4 |          4 |         15 |
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                            | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/.eslintrc.json                           | JSON               |         26 |          0 |          1 |         27 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/.platform/nginx/conf.d/proxy.conf        | Properties         |          1 |          0 |          0 |          1 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/.prettierignore                          | Ignore             |          3 |          0 |          0 |          3 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/.prettierrc.json                         | JSON               |          7 |          0 |          1 |          8 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/README.md                                | Markdown           |          1 |          0 |          0 |          1 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/configs/db.js                            | JavaScript         |         11 |          0 |          1 |         12 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/configs/index.js                         | JavaScript         |          4 |          0 |          1 |          5 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/configs/routes.js                        | JavaScript         |          8 |          1 |          4 |         13 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/controllers/authentication.controller.js | JavaScript         |         85 |          6 |         24 |        115 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/controllers/index.js                     | JavaScript         |          4 |          0 |          2 |          6 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/controllers/product.controller.js        | JavaScript         |         40 |          1 |         12 |         53 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/controllers/user.controller.js           | JavaScript         |          0 |          0 |          1 |          1 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/jsconfig.json                            | JSON with Comments |         13 |         11 |          0 |         24 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/middlewares/authenticateToken.js         | JavaScript         |         16 |          0 |          4 |         20 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/middlewares/errorHandler.js              | JavaScript         |          8 |          0 |          2 |         10 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/middlewares/index.js                     | JavaScript         |          4 |          0 |          1 |          5 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/Cart.js                           | JavaScript         |         26 |          0 |          3 |         29 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/Order.js                          | JavaScript         |         48 |          0 |          3 |         51 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/Product.js                        | JavaScript         |         50 |          1 |          4 |         55 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/RefreshToken.js                   | JavaScript         |         10 |          0 |          3 |         13 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/Review.js                         | JavaScript         |         27 |          0 |          3 |         30 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/User.js                           | JavaScript         |         38 |          0 |          3 |         41 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/models/index.js                          | JavaScript         |          8 |          0 |          1 |          9 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/package-lock.json                        | JSON               |      3,781 |          0 |          1 |      3,782 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/package.json                             | JSON               |         66 |          0 |          1 |         67 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/routes/authentication.routes.js          | JavaScript         |          6 |          0 |          4 |         10 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/routes/index.js                          | JavaScript         |          3 |          0 |          1 |          4 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/server.js                                | JavaScript         |         25 |          8 |         14 |         47 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/services/index.js                        | JavaScript         |          4 |          0 |          2 |          6 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/services/mongoose.services.js            | JavaScript         |         19 |          0 |          3 |         22 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/utils/catchAsync.js                      | JavaScript         |          3 |          4 |          2 |          9 |
+| /Users/nitieii/Documents/FGW/Fourth Semester/toy-ecommerce/utils/index.js                           | JavaScript         |          4 |          0 |          2 |          6 |
+| Total                                                                                               |                    |      4,349 |         32 |        104 |      4,485 |
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
