@@ -4,10 +4,13 @@ const cors = require("cors");
 const compression = require("compression");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
-
 const { createServer } = require("http");
 
+const { db } = require("./configs");
+
 dotenv.config();
+
+db();
 
 const app = express();
 const PORT = process.env.PORT;
