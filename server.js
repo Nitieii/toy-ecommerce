@@ -6,7 +6,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const { createServer } = require("http");
 
-const { db } = require("./configs");
+const { db, routes } = require("#configs");
 
 dotenv.config();
 
@@ -37,6 +37,9 @@ app.use(compression());
 
 /* ----- secure app by setting various HTTP headers ----- */
 app.use(helmet());
+
+/* ------------------ routes configure ------------------ */
+routes(app);
 
 httpServer.listen(PORT, () => {
 	console.log(`Server is running at ${PORT}`);

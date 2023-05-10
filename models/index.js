@@ -4,4 +4,5 @@ module.exports = {
 	Cart: require("./Cart"),
 	Order: require("./Order"),
 	Review: require("./Review"),
+	RefreshToken: require("./RefreshToken"),
 };
