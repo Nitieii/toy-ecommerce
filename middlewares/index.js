@@ -5,6 +5,7 @@ module.exports = {
 
 	// request validation
 	productRequestValidation: require("./validation/productRequest.validation"),
+	cartRequestValidation: require("./validation/cartRequest.validation"),
 
 	errorHandler: require("./errorHandler"),
 };

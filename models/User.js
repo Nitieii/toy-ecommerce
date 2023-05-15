@@ -37,4 +37,11 @@ const User = new mongoose.Schema(
 	{ timestamps: true }
 );
 
+// If user is deleted, delete cart of the user
+User.pre("remove", async function (next) {
+	await this.model("Cart").deleteOne({ user: this._id });
+
+	next();
+});
+
 module.exports = mongoose.model("User", User);

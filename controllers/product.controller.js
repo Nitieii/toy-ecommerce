@@ -50,7 +50,7 @@ const getProduct = catchAsync(async (req, res) => {
 
 const createProduct = catchAsync(async (req, res) => {
 	try {
-		const { name, price, description, category, ratings } = req.body;
+		const { name, price, description, category, quantity, ratings } = req.body;
 
 		// Create a new product using the provided data
 		const product = await Product.create({
@@ -58,6 +58,7 @@ const createProduct = catchAsync(async (req, res) => {
 			price,
 			description,
 			category,
+			quantity,
 			ratings,
 		});
 

@@ -19,6 +19,17 @@ const productSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Product description is required"],
 		},
+		quantity: {
+			type: Number,
+			required: [true, "Product quantity is required"],
+			default: 0,
+			min: [0, "Product quantity cannot be less than 0"],
+			// check if quantity is a valid integer
+			validate: {
+				validator: Number.isInteger,
+				message: "{VALUE} is not an integer value",
+			},
+		},
 		ratings: {
 			type: Number,
 			default: 0,
