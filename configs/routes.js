@@ -2,6 +2,7 @@ const {
 	authenticationRoute,
 	productRoute,
 	cartRoute,
+	orderRoute,
 	userRoute,
 } = require("#routes");
 
@@ -21,6 +22,9 @@ const routes = (app) => {
 
 	/* -------------------- user -------------------- */
 	app.use("/api/v1", userRoute);
+
+	/* -------------------- order -------------------- */
+	app.use("/api/v1", orderRoute);
 };
 
 module.exports = routes;

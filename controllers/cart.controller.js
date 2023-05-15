@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const { Cart } = require("#models");
 const { paginate, calLengthPage } = require("#services/mongoose.services");
 const { catchAsync } = require("#utils");

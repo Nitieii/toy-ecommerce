@@ -59,4 +59,18 @@ const productSchema = new mongoose.Schema(
 	}
 );
 
+// If product is find by id and delete, delete cart item of the product
+productSchema.pre("findOneAndDelete", async function (next) {
+	const { Cart } = require("#models");
+
+	const product = await this.model.findOne(this.getQuery());
+
+	await Cart.updateMany(
+		{ "cartItems.product": product._id },
+		{ $pull: { cartItems: { product: product._id } } }
+	);
+
+	next();
+});
+
 module.exports = mongoose.model("Product", productSchema);

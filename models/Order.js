@@ -47,4 +47,47 @@ const Order = new mongoose.Schema(
 	{ timestamps: true }
 );
 
+// Populate the user field
+Order.pre(/^find/, function (next) {
+	this.populate({
+		path: "user",
+		select: "name email",
+	});
+	next();
+});
+
+// Populate the products field
+Order.pre(/^find/, function (next) {
+	this.populate({
+		path: "products.product",
+		select: "name price",
+	});
+	next();
+});
+
+// Calculate the total cost of the order, and empty the cart
+Order.pre("save", async function (next) {
+	let totalCost = 0;
+
+	this.products.forEach((product) => {
+		totalCost += product.product.price * product.quantity;
+	});
+
+	this.totalCost = totalCost;
+
+	const Cart = require("./Cart");
+
+	// Empty the cart after creating an order
+	const cart = await Cart.findOne({ user: this.user });
+
+	if (!cart) {
+		throw new Error("Cart does not exist");
+	}
+
+	cart.products = [];
+	await cart.save();
+
+	next();
+});
+
 module.exports = mongoose.model("Order", Order);
