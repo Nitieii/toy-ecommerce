@@ -59,18 +59,23 @@ module.exports = {
 		return s3Client.send(command).Body;
 	},
 
-	// Deletes a file from S3
-	deleteFile: async (fileKey) => {
+	// Deletes multiple file from S3
+	deleteFiles: async (fileS3urls, path) => {
 		try {
-			// Set up parameters for the S3 delete command
-			const command = new DeleteObjectCommand({
-				Key: fileKey,
-				Bucket: bucketName,
+			const objectsToDelete = fileS3urls.map(async (fileS3url) => {
+				const fileName = fileS3url.split("/").pop();
+
+				// Set up parameters for the S3 delete command
+				const command = new DeleteObjectCommand({
+					Bucket: bucketName,
+					Key: path + fileName,
+				});
+				
+				// Use the S3 client object to send the delete command and return the result
+				await s3Client.send(command);
 			});
-			// Use the S3 client object to send the delete command and return the result
-			const result = await s3Client.send(command);
-			console.log(result);
-			return result;
+
+			return;
 		} catch (err) {
 			// Log and return any errors that occur during the delete
 			console.log(err);

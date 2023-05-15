@@ -29,9 +29,6 @@ app.use(
 /* --- sanitize mongo queries data (prevent injection) -- */
 app.use(mongoSanitize());
 
-/* ------------ Data sanitization against XSS ----------- */
-// app.use(xss());
-
 /* --------------- compress response body --------------- */
 app.use(compression());
 

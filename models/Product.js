@@ -48,13 +48,4 @@ const productSchema = new mongoose.Schema(
 	}
 );
 
-// Query middleware
-productSchema.pre(/^find/, function (next) {
-	this.populate({
-		path: "user",
-		select: "name email",
-	});
-	next();
-});
-
 module.exports = mongoose.model("Product", productSchema);
