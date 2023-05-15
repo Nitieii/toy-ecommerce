@@ -42,15 +42,17 @@ const User = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-// If user is find by id and delete, delete cart of the user
+// If user is find by id and delete, delete cart, orders of the user
 User.pre("findOneAndDelete", async function (next) {
-	const { Cart } = require("#models");
+	const { Cart, Order } = require("#models");
 
 	const user = await this.model.findOne(this.getQuery());
 
 	await Cart.findOneAndDelete({ user: user._id });
 
-	next();	
+	await Order.deleteMany({ user: user._id });
+
+	next();
 });
 
 // If user is created, create cart for the user
