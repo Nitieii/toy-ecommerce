@@ -4,6 +4,39 @@ const { Cart } = require("#models");
 const { paginate, calLengthPage } = require("#services/mongoose.services");
 const { catchAsync } = require("#utils");
 
+const getAllCarts = catchAsync(async (req, res) => {
+	try {
+		const page = req.query.page;
+
+		const carts = await Cart.aggregate().facet({
+			...calLengthPage("totalLength"),
+			carts: [{ $sort: { _id: -1 } }, ...paginate(page)],
+		});
+
+		if (carts[0].carts.length === 0) {
+			return res.send({
+				status: "success",
+				carts: [],
+				totalPage: 0,
+				totalLenght: 0,
+			});
+		}
+
+		return res.send({
+			status: "success",
+			carts: carts[0].carts,
+			totalPage: carts[0].totalLength[0].totalPage,
+			totalLength: carts[0].totalLength[0].totalLength,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.send({
+			status: "error",
+			message: error.message,
+		});
+	}
+});
+
 const getCart = catchAsync(async (req, res) => {
 	try {
 		const { user } = req;
@@ -193,10 +226,42 @@ const deleteCartItem = catchAsync(async (req, res) => {
 	}
 });
 
+const deleteCart = catchAsync(async (req, res) => {
+	try {
+		const { cartId } = req.params;
+
+		// Find the cart of the user
+		const cart = await Cart.findByIdAndDelete(cartId);
+
+		// Check if the cart exists
+		if (!cart) {
+			// If the cart does not exist, throw an error
+			return res.send({
+				status: "error",
+				message: "Cart does not exist",
+			});
+		}
+
+		// Return the cart
+		return res.send({
+			status: "success",
+			message: "Cart deleted successfully",
+		});
+	} catch (error) {
+		console.log(error);
+		return res.send({
+			status: "error",
+			message: error.message,
+		});
+	}
+});
+
 module.exports = {
+	getAllCarts,
 	getCart,
 	createCart,
 	addToCart,
 	updateCart,
 	deleteCartItem,
+	deleteCart,
 };
