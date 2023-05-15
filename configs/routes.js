@@ -1,4 +1,9 @@
-const { authenticationRoute, productRoute, cartRoute } = require("#routes");
+const {
+	authenticationRoute,
+	productRoute,
+	cartRoute,
+	userRoute,
+} = require("#routes");
 
 const routes = (app) => {
 	app.get("/", (req, res) => {
@@ -13,6 +18,9 @@ const routes = (app) => {
 
 	/* -------------------- cart -------------------- */
 	app.use("/api/v1", cartRoute);
+
+	/* -------------------- user -------------------- */
+	app.use("/api/v1", userRoute);
 };
 
 module.exports = routes;

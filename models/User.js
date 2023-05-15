@@ -23,6 +23,11 @@ const User = new mongoose.Schema(
 		password: {
 			type: String,
 			required: [true, "Password is required"],
+			maxLength: [100, "Password cannot exceed 100 characters"],
+			match: [
+				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+				"Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character",
+			],
 		},
 		image_url: {
 			type: String,
@@ -37,9 +42,20 @@ const User = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-// If user is deleted, delete cart of the user
-User.pre("remove", async function (next) {
-	await this.model("Cart").deleteOne({ user: this._id });
+// If user is find by id and delete, delete cart of the user
+User.pre("findOneAndDelete", async function (next) {
+	const { Cart } = require("#models");
+
+	const user = await this.model.findOne(this.getQuery());
+
+	await Cart.findOneAndDelete({ user: user._id });
+
+	next();	
+});
+
+// If user is created, create cart for the user
+User.post("save", async function (doc, next) {
+	await this.model("Cart").create({ user: this._id });
 
 	next();
 });

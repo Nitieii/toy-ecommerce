@@ -13,10 +13,36 @@ const signUp = catchAsync(async (req, res) => {
 
 	await user.save();
 
+	// Generate token
+	const access_token = jwt.sign(
+		{
+			id: user._id,
+			email: user.email,
+		},
+		process.env.JWT_SECRET,
+		{ expiresIn: "1d" }
+	);
+
+	const refresh_token = jwt.sign(
+		{
+			id: user._id,
+			email: user.email,
+		},
+		process.env.JWT_SECRET
+	);
+
+	const refresh = new RefreshToken({ token: refresh_token });
+	await refresh.save();
+
 	return res.send({
 		status: "success",
 		message: `User created successfully`,
 		user,
+		token: {
+			access_token,
+			refresh_token,
+			expires_in: "1d",
+		},
 	});
 });
 

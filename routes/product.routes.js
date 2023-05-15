@@ -1,11 +1,7 @@
 const router = require("express").Router();
 
 const { productCtrl } = require("#controllers");
-const {
-	authenticateToken,
-	authenticateAdmin,
-	productRequestValidation,
-} = require("#middlewares");
+const { authenticateToken, authenticateAdmin } = require("#middlewares");
 
 const multer = require("multer");
 const upload = multer({ dest: "files/products" });
@@ -18,7 +14,6 @@ router.post(
 	authenticateToken,
 	authenticateAdmin,
 	upload.array("images"),
-	productRequestValidation,
 	productCtrl.createProduct
 );
 router.put(
