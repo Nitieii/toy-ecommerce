@@ -22,7 +22,7 @@ const Cart = new mongoose.Schema(
 					default: 1,
 					min: [1, "Quantity cannot be less than 1"],
 					// Check if the quantity does not exceed the available quantity of the product
-					validate: {
+					validate: {	
 						validator: async function (value) {
 							const product = await this.model("Product").findById(
 								this.product
