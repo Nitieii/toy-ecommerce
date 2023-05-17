@@ -230,6 +230,62 @@ const searchProducts = catchAsync(async (req, res) => {
 	}
 });
 
+const getAllCategories = catchAsync(async (req, res) => {
+	try {
+		const categories = await Product.aggregate([
+			{
+				$group: {
+					_id: "$category",
+					categoryImg: { $first: { $arrayElemAt: ["$images", 0] } },
+					priceMin: { $min: "$price" },
+				},
+			},
+			{ $sort: { count: -1 } },
+		]);
+
+		// Return a success response with all categories
+		return res.send({ status: "success", categories });
+	} catch (error) {
+		return res.send({ status: "error", message: error.message });
+	}
+});
+
+const getProductsByCategory = catchAsync(async (req, res) => {
+	try {
+		const { category, page } = req.query;
+
+
+		const products = await Product.aggregate([
+			{
+				$match: {
+					category: category,
+				},
+			},
+		]).facet({
+			...calLengthPage("totalLength"),
+			products: [{ $sort: { _id: -1 } }, ...paginate(page)],
+		});
+
+		if (products[0].products.length === 0) {
+			return res.send({
+				status: "success",
+				products: [],
+				totalPage: 0,
+				totalLenght: 0,
+			});
+		}
+
+		return res.send({
+			status: "success",
+			products: products[0].products,
+			totalPage: products[0].totalLength[0].totalPage,
+			totalLength: products[0].totalLength[0].totalLength,
+		});
+	} catch (error) {
+		return res.send({ status: "error", message: error.message });
+	}
+});
+
 module.exports = {
 	getAllProducts,
 	getProduct,
@@ -237,4 +293,6 @@ module.exports = {
 	updateProduct,
 	deleteProduct,
 	searchProducts,
+	getAllCategories,
+	getProductsByCategory,
 };
