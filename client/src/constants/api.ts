@@ -1,4 +1,4 @@
-const GET_API = (id) => {
+const GET_API = (id: string) => {
   return {
     // products
     GET_PRODUCTS: `/products`,

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-const ENDPOINT = "http://localhost:8080/api";
+const ENDPOINT = "http://localhost:8080/api/v1";
 
 interface InternalAxiosRequestConfig<T = any> extends AxiosRequestConfig<T> {}
 

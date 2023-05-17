@@ -1,6 +1,18 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initalState = {
+interface Category {
+  _id: string;
+  categoryImg: string;
+  priceMin: number;
+}
+
+interface CategoryState {
+  categories: Category[] | [];
+  selectedCategory: Category | null;
+  loading: boolean;
+}
+
+const initalState: CategoryState = {
   categories: [],
   selectedCategory: null,
 
@@ -11,11 +23,11 @@ const slice = createSlice({
   name: "category",
   initialState: initalState,
   reducers: {
-    SET_CATEGORIES: (state, action) => {
+    SET_CATEGORIES: (state, action: PayloadAction<Category[]>) => {
       state.categories = action.payload;
     },
 
-    HANDLE_LOADING: (state, action) => {
+    HANDLE_LOADING: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
   },
@@ -24,5 +36,7 @@ const slice = createSlice({
 const { reducer, actions } = slice;
 
 export const { SET_CATEGORIES, HANDLE_LOADING } = actions;
+
+export type { CategoryState, Category };
 
 export default reducer;
