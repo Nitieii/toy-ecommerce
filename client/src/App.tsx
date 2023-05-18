@@ -1,5 +1,7 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "./routes";
+import { BrowserRouter as Router } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Routes from './routes';
 
 function App() {
   return (

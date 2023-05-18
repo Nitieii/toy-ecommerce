@@ -1,4 +1,4 @@
-const GET_API = (id: string) => {
+const GET_API = (id: string, page = 1) => {
   return {
     // products
     GET_PRODUCTS: `/products`,
@@ -6,7 +6,7 @@ const GET_API = (id: string) => {
 
     // categories
     GET_CATEGORIES: `/categories`,
-    GET_CATEGORY: `/categories/${id}`,
+    GET_CATEGORY: `/category?category=${id}&page=${page}`,
   };
 };
 

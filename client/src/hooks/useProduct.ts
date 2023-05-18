@@ -4,34 +4,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_API } from '../constants/api.js';
 
 import {
-  SET_CATEGORIES,
-  SET_SELECTED_CATEGORY,
+  SET_PRODUCTS,
   HANDLE_LOADING,
-} from '../store/slices/CategorySlice.js';
+  SET_CURRENT_PAGE,
+} from '../store/slices/ProductsSlice.js';
 
 import axios from '../utils/axios.js';
 
-const useCategory = () => {
+const useProduct = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useAlert();
 
-  const { categories, loading, selectedCategory } = useSelector(
-    (state: any) => state.category
-  );
+  const { products, loading, currentPage, totalPage, totalLength } =
+    useSelector((state: any) => state.product);
 
-  const getCategories = async () => {
+  const getProductsByCategory = async (category: string, page: number) => {
     try {
       dispatch(HANDLE_LOADING(true));
 
-      const { data } = await axios.get(GET_API('1').GET_CATEGORIES);
+      const { data } = await axios.get(GET_API(category, page).GET_CATEGORY);
 
       if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
         return enqueueSnackbar(data.message, { variant: 'error' });
       }
 
-      const categories = data.categories;
+      dispatch(SET_CURRENT_PAGE(page));
 
-      dispatch(SET_CATEGORIES(categories));
+      dispatch(SET_PRODUCTS(data));
       dispatch(HANDLE_LOADING(false));
 
       return;
@@ -42,21 +42,24 @@ const useCategory = () => {
     }
   };
 
-  const handleSelectedCategory = (category: string) => {
-    dispatch(SET_SELECTED_CATEGORY(category));
+  const handleCurrentPage = (page: number) => {
+    dispatch(SET_CURRENT_PAGE(page));
   };
+
   const handleLoading = (loading: boolean) => {
     dispatch(HANDLE_LOADING(loading));
   };
 
   return {
-    categories,
-    selectedCategory,
+    products,
     loading,
-    handleSelectedCategory,
+    currentPage,
+    totalPage,
+    totalLength,
     handleLoading,
-    getCategories,
+    getProductsByCategory,
+    handleCurrentPage,
   };
 };
 
-export default useCategory;
+export default useProduct;
