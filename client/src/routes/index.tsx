@@ -31,6 +31,10 @@ export default function Router() {
           path: 'shop',
           element: <ShopPage />,
         },
+        {
+          path: 'product/:id',
+          element: <ProductDetailPage />,
+        },
       ],
     },
   ]);
@@ -38,6 +42,6 @@ export default function Router() {
 
 const HomePage = Loadable(React.lazy(() => import('../pages/Home.page.tsx')));
 const ShopPage = Loadable(React.lazy(() => import('../pages/Shop.page.tsx')));
-// const ProductDetailPage = Loadable(
-//   React.lazy(() => import('../pages/ProductDetail.page.tsx'))
-// );
+const ProductDetailPage = Loadable(
+  React.lazy(() => import('../pages/ProductDetail.page.tsx'))
+);

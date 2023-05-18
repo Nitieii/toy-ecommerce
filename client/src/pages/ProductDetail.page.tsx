@@ -1,9 +1,7 @@
+import ProductDetails from '../components/productdetails/productDetails';
+
 const ProductDetailPage = () => {
-  return (
-    <>
-      <h1>ProductDetail Page</h1>
-    </>
-  );
+  return <ProductDetails />;
 };
 
 export default ProductDetailPage;

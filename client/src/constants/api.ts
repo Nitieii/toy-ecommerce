@@ -2,7 +2,7 @@ const GET_API = (id: string, page = 1) => {
   return {
     // products
     GET_PRODUCTS: `/products`,
-    GET_PRODUCT: `/products/${id}`,
+    GET_PRODUCT: `/product/${id}`,
 
     // categories
     GET_CATEGORIES: `/categories`,

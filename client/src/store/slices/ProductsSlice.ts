@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Product {
   _id: string;
@@ -13,6 +13,7 @@ interface Product {
 
 interface ProductState {
   products: Product[];
+  product: Product;
   loading: boolean;
   currentPage: number;
   totalPages: number;
@@ -25,10 +26,20 @@ const initalState: ProductState = {
   currentPage: 1,
   totalPages: 0,
   totalLength: 0,
+  product: {
+    _id: '',
+    name: '',
+    price: 0,
+    description: '',
+    quantity: 0,
+    ratings: 0,
+    images: [''],
+    category: '',
+  },
 };
 
 const slice = createSlice({
-  name: "product",
+  name: 'product',
   initialState: initalState,
   reducers: {
     SET_PRODUCTS: (state, action: PayloadAction<any>) => {
@@ -41,6 +52,10 @@ const slice = createSlice({
       state.currentPage = action.payload;
     },
 
+    SET_PRODUCT: (state, action: PayloadAction<Product>) => {
+      state.product = action.payload;
+    },
+
     HANDLE_LOADING: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -49,7 +64,8 @@ const slice = createSlice({
 
 const { reducer, actions } = slice;
 
-export const { SET_PRODUCTS, HANDLE_LOADING, SET_CURRENT_PAGE } = actions;
+export const { SET_PRODUCTS, HANDLE_LOADING, SET_CURRENT_PAGE, SET_PRODUCT } =
+  actions;
 
 export type { ProductState, Product };
 
