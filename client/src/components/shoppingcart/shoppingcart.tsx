@@ -1,10 +1,9 @@
 import CartSummary from './cartSummary';
 
 import { useCart } from '../../hooks';
-import { Product } from '../../store/slices/ProductsSlice.ts';
 
 function Shoppingcart() {
-  const { products, updateCart } = useCart();
+  const { products, updateCart, removeCartItem } = useCart();
 
   const handleQuantityChange = (e: any, productId: string, method: string) => {
     const currentQuantity =
@@ -13,7 +12,16 @@ function Shoppingcart() {
     if (method === 'plus') {
       updateCart(productId, parseInt(currentQuantity) + 1);
     } else {
-      updateCart(productId, parseInt(currentQuantity) - 1);
+      if (parseInt(currentQuantity) === 1) {
+        const deleteConfirm: boolean = confirm(
+          'Are you sure you want to remove this item?'
+        );
+        if (deleteConfirm) {
+          removeCartItem(productId);
+        }
+      } else {
+        updateCart(productId, parseInt(currentQuantity) - 1);
+      }
     }
   };
 

@@ -223,10 +223,15 @@ const deleteCartItem = catchAsync(async (req, res) => {
     // Save the cart
     await cart.save();
 
+    const response = await Cart.findOne({ user: user.id });
+
     // Return the cart
     return res.send({
       status: "success",
-      cart
+      cart: {
+        ...cart.toObject(),
+        totalPrice: response.totalPrice
+      }
     });
   } catch (error) {
     console.log(error);

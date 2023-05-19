@@ -3,8 +3,6 @@ import { useCart } from '../../hooks';
 function CartSummator() {
   const { totalPrice } = useCart();
 
-  console.log('CartSummator totalPrice: ', totalPrice)
-
   return (
     <>
       <h5>Cart Total</h5>
