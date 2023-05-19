@@ -35,6 +35,10 @@ export default function Router() {
           path: 'product/:id',
           element: <ProductDetailPage />,
         },
+        {
+          path: 'cart',
+          element: <ShoppingCart />,
+        },
       ],
     },
   ]);
@@ -44,4 +48,7 @@ const HomePage = Loadable(React.lazy(() => import('../pages/Home.page.tsx')));
 const ShopPage = Loadable(React.lazy(() => import('../pages/Shop.page.tsx')));
 const ProductDetailPage = Loadable(
   React.lazy(() => import('../pages/ProductDetail.page.tsx'))
+);
+const ShoppingCart = Loadable(
+  React.lazy(() => import('../pages/ShoppingCart.page.tsx'))
 );

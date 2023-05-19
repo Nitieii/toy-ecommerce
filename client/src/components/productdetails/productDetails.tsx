@@ -1,10 +1,11 @@
 import Spinner from '../spinner/spinner';
 import { useEffect, useState } from 'react';
 
-import { useProduct } from '../../hooks';
+import { useProduct, useCart } from '../../hooks';
 
 function ProductDetails() {
   const { product, loading, handleGetProduct } = useProduct();
+  const { handleAddToCart, loadingCart } = useCart();
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
@@ -18,10 +19,10 @@ function ProductDetails() {
     }
   }, []);
 
-  if (loading) return <Spinner />;
+  if (loading || loadingCart) return <Spinner />;
 
   function handlerAddToCart() {
-    console.log('product', product);
+    handleAddToCart(product?._id, quantity);
   }
 
   function renderBigImage() {
@@ -155,13 +156,14 @@ function ProductDetails() {
                     ? 'In stock'
                     : product?.quantity <= 10
                     ? 'Running low'
-                    : 'Out of stock'} - {product?.quantity} products available
+                    : 'Out of stock'}{' '}
+                  - {product?.quantity} products available
                 </p>
               </div>
 
               {renderDesc()}
 
-              <form className='cart clearfix' method='post'>
+              <div className='cart clearfix'>
                 <div className='cart-btn d-flex mb-50'>
                   <p>Qty</p>
                   <div className='quantity'>
@@ -199,7 +201,7 @@ function ProductDetails() {
                 >
                   Add to cart
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>

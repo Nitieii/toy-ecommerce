@@ -105,7 +105,6 @@ const addToCart = catchAsync(async (req, res) => {
     const productIndex = cart.products.findIndex(
       (product) => product.product._id.toString() === productId);
 
-    console.log(productIndex);
     // If the product is already in the cart
     if (productIndex !== -1) {
       // Increase the quantity of the product

@@ -11,7 +11,7 @@ interface CartState {
   _id: string;
   products: [{ product: Product; quantity: number }];
   totalPrice: number;
-  loading: boolean;
+  loadingCart: boolean;
 }
 
 const initalState: CartState = {
@@ -32,7 +32,7 @@ const initalState: CartState = {
     },
   ],
   totalPrice: 0,
-  loading: false,
+  loadingCart: false,
 };
 
 const slice = createSlice({
@@ -46,7 +46,7 @@ const slice = createSlice({
     },
 
     HANDLE_LOADING: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+      state.loadingCart = action.payload;
     },
 
     HANDLE_ADD_TO_CART: (state, action: PayloadAction<Product>) => {

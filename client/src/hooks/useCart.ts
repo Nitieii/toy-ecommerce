@@ -6,14 +6,15 @@ import { GET_API, POST_API, PUT_API, DELETE_API } from '../constants/api.js';
 import { SET_CART, HANDLE_LOADING } from '../store/slices/CartSlice.ts';
 
 import axios from '../utils/axios.js';
-import { Product } from '../store/slices/ProductsSlice.ts';
 
 const useCart = () => {
   const dispatch = useDispatch();
 
   const { enqueueSnackbar } = useAlert();
 
-  const { cart, loading } = useSelector((state: any) => state.cart);
+  const { products, loadingCart, totalPrice } = useSelector(
+    (state: any) => state.cart
+  );
 
   const getCart = async () => {
     try {
@@ -23,7 +24,7 @@ const useCart = () => {
 
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
-        return enqueueSnackbar(data.message, { variant: 'error' });
+        return alert("Can't get cart");
       }
 
       dispatch(SET_CART(data.cart));
@@ -33,28 +34,34 @@ const useCart = () => {
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
 
-      return enqueueSnackbar(error.message, { variant: 'error' });
+      return alert(error.message);
     }
   };
 
-  const handleAddToCart = async (product: Product) => {
+  const handleAddToCart = async (productId: string, quantity: number) => {
     try {
       dispatch(HANDLE_LOADING(true));
 
-      const { data } = await axios.post(POST_API().ADD_TO_CART, { product });
+      const { data } = await axios.post(POST_API().ADD_TO_CART, {
+        productId,
+        quantity,
+      });
 
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
-        return enqueueSnackbar(data.message, { variant: 'error' });
+        return alert("Can't add to cart");
       }
 
       const { cart } = data;
       dispatch(SET_CART(cart));
 
       dispatch(HANDLE_LOADING(false));
-      return;
+
+      return alert('Add to cart successfully!');
     } catch (error: any) {
-      return enqueueSnackbar(error.message, { variant: 'error' });
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(error.message);
     }
   };
 
@@ -62,7 +69,7 @@ const useCart = () => {
     try {
       dispatch(HANDLE_LOADING(true));
 
-      const { data } = await axios.post(PUT_API().UPDATE_CART, {
+      const { data } = await axios.put(PUT_API().UPDATE_CART, {
         productId,
         quantity,
       });
@@ -73,6 +80,7 @@ const useCart = () => {
       }
 
       const { cart } = data;
+
       dispatch(SET_CART(cart));
 
       dispatch(HANDLE_LOADING(false));
@@ -111,8 +119,9 @@ const useCart = () => {
   };
 
   return {
-    cart,
-    loading,
+    products,
+    totalPrice,
+    loadingCart,
     getCart,
     handleAddToCart,
     updateCart,
