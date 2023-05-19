@@ -164,6 +164,9 @@ const updateCart = catchAsync(async (req, res) => {
     if (productIndex !== -1) {
       // Update the quantity of the product
       cart.products[productIndex].quantity = quantity;
+    } else {
+      // Add the product to the cart
+      cart.products.push({ product: productId, quantity });
     }
 
     // Save the cart
