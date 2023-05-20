@@ -27,7 +27,7 @@ function NavBar() {
           <a href={URL.CHECKOUT}>Checkout</a>
         </li>
         <li>
-          <a href={URL.ROOT}>Login / Sign up</a>
+          <a href={'/login'}>Login / Sign up</a>
         </li>
         <li>
           <a href={URL.ROOT}>My Profile</a>

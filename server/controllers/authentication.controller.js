@@ -5,136 +5,137 @@ const { User, RefreshToken } = require("#models");
 const { catchAsync } = require("#utils");
 
 const signUp = catchAsync(async (req, res) => {
-	const { fullname, email, password: plainTextPassword } = req.body;
+  const { fullname, email, password: plainTextPassword } = req.body;
 
-	const password = await argon2.hash(plainTextPassword);
+  const password = await argon2.hash(plainTextPassword);
 
-	const user = await User.create({ fullname, email, password });
+  const user = await User.create({ fullname, email, password });
 
-	await user.save();
+  await user.save();
 
-	// Generate token
-	const access_token = jwt.sign(
-		{
-			id: user._id,
-			email: user.email,
-		},
-		process.env.JWT_SECRET,
-		{ expiresIn: "1d" }
-	);
+  // Generate token
+  const access_token = jwt.sign(
+    {
+      id: user._id,
+      email: user.email
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
 
-	const refresh_token = jwt.sign(
-		{
-			id: user._id,
-			email: user.email,
-		},
-		process.env.JWT_SECRET
-	);
+  const refresh_token = jwt.sign(
+    {
+      id: user._id,
+      email: user.email
+    },
+    process.env.JWT_SECRET
+  );
 
-	const refresh = new RefreshToken({ token: refresh_token });
-	await refresh.save();
+  const refresh = new RefreshToken({ token: refresh_token });
+  await refresh.save();
 
-	return res.send({
-		status: "success",
-		message: `User created successfully`,
-		user,
-		token: {
-			access_token,
-			refresh_token,
-			expires_in: "1d",
-		},
-	});
+  return res.send({
+    status: "success",
+    message: `User created successfully`,
+    user,
+    token: {
+      access_token,
+      refresh_token,
+      expires_in: "1d"
+    }
+  });
 });
 
 const logIn = catchAsync(async (req, res) => {
-	const { email, password } = req.body;
+  const { email, password } = req.body;
 
-	// Check if email and password are provided
-	if (!email || !password) {
-		return res.send({
-			status: "error",
-			message: "Email and password are required",
-		});
-	}
+  // Check if email and password are provided
+  if (!email || !password) {
+    return res.send({
+      status: "error",
+      message: "Email and password are required"
+    });
+  }
 
-	// Check if user exists
-	const user = await User.findOne({ email });
+  // Check if user exists
+  const user = await User.findOne({ email });
 
-	if (!user) {
-		return res.send({
-			status: "error",
-			message: "Email or password is incorrect",
-		});
-	}
+  if (!user) {
+    return res.send({
+      status: "error",
+      message: "Email or password is incorrect"
+    });
+  }
 
-	// Check if password is correct
-	if (await argon2.verify(user.password, password)) {
-		// Generate token
-		const access_token = jwt.sign(
-			{
-				id: user._id,
-				email: user.email,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: "1d" }
-		);
+  // Check if password is correct
+  if (await argon2.verify(user.password, password)) {
+    // Generate token
+    const access_token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-		const refresh_token = jwt.sign(
-			{
-				id: user._id,
-				email: user.email,
-			},
-			process.env.JWT_SECRET
-		);
+    const refresh_token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email
+      },
+      process.env.JWT_SECRET
+    );
 
-		const refresh = new RefreshToken({ token: refresh_token });
-		await refresh.save();
+    const refresh = new RefreshToken({ token: refresh_token });
+    await refresh.save();
 
-		return res.send({
-			status: "success",
-			message: "Login successful",
-			data: {
-				access_token,
-				refresh_token,
-				expires_in: "1d",
-			},
-		});
-	}
+    return res.send({
+      status: "success",
+      message: "Login successful",
+      user,
+      token: {
+        access_token,
+        refresh_token,
+        expires_in: "1d"
+      }
+    });
+  }
 
-	throw new Error("Email or password is incorrect");
+  throw new Error("Email or password is incorrect");
 });
 
 const refreshToken = catchAsync(async (req, res) => {
-	const { refreshToken } = req.body;
+  const { refreshToken } = req.body;
 
-	if (!refreshToken) {
-		return res.send({ status: "error", message: "Refresh token is undefined" });
-	}
+  if (!refreshToken) {
+    return res.send({ status: "error", message: "Refresh token is undefined" });
+  }
 
-	const token = await RefreshToken.findOne({ token: refreshToken });
+  const token = await RefreshToken.findOne({ token: refreshToken });
 
-	if (!token) {
-		return res.status(403).send("Invalid refresh token");
-	}
+  if (!token) {
+    return res.status(403).send("Invalid refresh token");
+  }
 
-	// Verify the refresh token
-	const user = jwt.verify(refreshToken, process.env.JWT_SECRET);
+  // Verify the refresh token
+  const user = jwt.verify(refreshToken, process.env.JWT_SECRET);
 
-	// Create new access token
-	const access_token = jwt.sign(
-		{
-			id: user._id,
-			email: user.email,
-		},
-		process.env.JWT_SECRET,
-		{ expiresIn: "1d" }
-	);
+  // Create new access token
+  const access_token = jwt.sign(
+    {
+      id: user._id,
+      email: user.email
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
 
-	return res.send({ status: "success", access_token });
+  return res.send({ status: "success", access_token });
 });
 
 module.exports = {
-	signUp,
-	logIn,
-	refreshToken,
+  signUp,
+  logIn,
+  refreshToken
 };

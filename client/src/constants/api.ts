@@ -10,6 +10,9 @@ const GET_API = (id: string, page = 1) => {
 
     // cart
     GET_CART: `/cart`,
+
+    // user
+    GET_USER: `/user`,
   };
 };
 
@@ -17,6 +20,10 @@ const POST_API = () => {
   return {
     // cart
     ADD_TO_CART: `/cart/add`,
+
+    // authenticate
+    LOGIN: `/login`,
+    SIGNUP: `/signup`,
   };
 };
 

@@ -41,6 +41,14 @@ export default function Router() {
         },
       ],
     },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/signup',
+      element: <Signup />,
+    },
   ]);
 }
 
@@ -52,3 +60,6 @@ const ProductDetailPage = Loadable(
 const ShoppingCart = Loadable(
   React.lazy(() => import('../pages/ShoppingCart.page.tsx'))
 );
+
+const Login = Loadable(React.lazy(() => import('../pages/Login.page.tsx')));
+const Signup = Loadable(React.lazy(() => import('../pages/Signup.page.tsx')));
