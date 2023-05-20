@@ -1,29 +1,23 @@
 import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import useAuth from "hooks/useAuth";
-// import { PATH_AUTH } from "../routes/path.js";
-
-// ----------------------------------------------------------------------
+import { useNavigate } from 'react-router-dom';
+import Login from '../components/authenticate/login.tsx';
+import Signup from '../components/authenticate/signup.tsx';
 
 interface GuestGuardProps {
   children: React.ReactNode;
 }
 
 const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
-  // const { isLoading, isAuthenticated } = useAuth();
-  const isLoading = false;
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
 
-  // useEffect(() => {
-  //   // if (!isAuthenticated) return;
-  //
-  //   return navigate('/');
-  // }, [navigate]);
+    if (!token) return navigate('/login');
 
-  if (isLoading) {
-    return <div>loading auth login</div>;
-  }
+    if (token && children === <Login /> && children === <Signup />)
+      return navigate('/');
+  }, []);
 
   return <>{children}</>;
 };

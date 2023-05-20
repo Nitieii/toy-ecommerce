@@ -17,9 +17,9 @@ export default function Router() {
     {
       path: '/',
       element: (
-        <GuestGuard>
-          <MainLayout />
-        </GuestGuard>
+        // <GuestGuard>
+        <MainLayout />
+        // </GuestGuard>
       ),
       children: [
         { path: '/', element: <Navigate to='/home' replace /> },
@@ -37,17 +37,29 @@ export default function Router() {
         },
         {
           path: 'cart',
-          element: <ShoppingCart />,
+          element: (
+            <GuestGuard>
+              <ShoppingCart />
+            </GuestGuard>
+          ),
         },
       ],
     },
     {
       path: '/login',
-      element: <Login />,
+      element: (
+        <GuestGuard>
+          <Login />
+        </GuestGuard>
+      ),
     },
     {
       path: '/signup',
-      element: <Signup />,
+      element: (
+        <GuestGuard>
+          <Signup />
+        </GuestGuard>
+      ),
     },
   ]);
 }

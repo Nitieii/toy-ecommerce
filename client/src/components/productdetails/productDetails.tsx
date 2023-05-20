@@ -22,6 +22,18 @@ function ProductDetails() {
   if (loading || loadingCart) return <Spinner />;
 
   function handlerAddToCart() {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      alert('Please login to add to cart');
+
+      localStorage.setItem('redirect_url', window.location.pathname);
+
+      window.location.pathname = '/login';
+
+      return;
+    }
+
     handleAddToCart(product?._id, quantity);
   }
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import * as URL from '../../routes/url';
+import { useUser } from '../../hooks';
 
 function NavBar() {
   const location = window.location.pathname;
+
+  const { isAuthenticated, handleLogout } = useUser();
 
   return (
     <nav className='amado-nav'>
@@ -26,12 +29,20 @@ function NavBar() {
         <li className={location === '/checkout' ? 'active' : ''}>
           <a href={URL.CHECKOUT}>Checkout</a>
         </li>
-        <li>
-          <a href={'/login'}>Login / Sign up</a>
-        </li>
-        <li>
-          <a href={URL.ROOT}>My Profile</a>
-        </li>
+        {isAuthenticated ? (
+          <>
+            <li>
+              <a onClick={handleLogout}>Logout</a>
+            </li>
+            <li>
+              <a href={'/profile'}>My Profile</a>
+            </li>
+          </>
+        ) : (
+          <li>
+            <a href={'/login'}>Login / Sign up</a>
+          </li>
+        )}
       </ul>
     </nav>
   );

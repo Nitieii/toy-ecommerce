@@ -1,5 +1,5 @@
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import { verify, sign } from "jsonwebtoken";
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { verify, sign } from 'jsonwebtoken';
 
 // ---------------------------------------------------------------------
 
@@ -27,8 +27,8 @@ const handleTokenExpired = (exp: number): void => {
   const timeLeft = (exp - currentTime) * 1000;
 
   expiredTimer = window.setTimeout(() => {
-    console.log("expired token");
-    localStorage.removeItem("accessToken");
+    console.log('expired token');
+    localStorage.removeItem('accessToken');
   }, timeLeft);
 };
 
@@ -44,12 +44,12 @@ const getIdByToken = (accessToken: string): string | false => {
 
 const setSession = (accessToken: string): void => {
   if (accessToken) {
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem('accessToken', accessToken);
     const { exp } = jwtDecode<DecodedToken>(accessToken);
 
     handleTokenExpired(exp);
   } else {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
   }
 };
 

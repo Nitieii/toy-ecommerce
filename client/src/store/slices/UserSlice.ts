@@ -14,18 +14,20 @@ interface User {
 interface UserState {
   user: User | null;
   loadingUser: boolean;
+  isAuthenticated: boolean;
 }
 
 const initialState: UserState = {
   user: null,
   loadingUser: false,
+  isAuthenticated: false,
 };
 
 const slice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    SET_USER: (state, action: PayloadAction<User>) => {
+    SET_USER: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
     },
 
@@ -36,12 +38,21 @@ const slice = createSlice({
     HANDLE_LOADING_USER: (state, action: PayloadAction<boolean>) => {
       state.loadingUser = action.payload;
     },
+
+    HANDLE_AUTHENTICATED: (state, action: PayloadAction<boolean>) => {
+      state.isAuthenticated = action.payload;
+    },
   },
 });
 
 const { reducer, actions } = slice;
 
-export const { SET_USER, LOGOUT_USER, HANDLE_LOADING_USER } = actions;
+export const {
+  HANDLE_AUTHENTICATED,
+  SET_USER,
+  LOGOUT_USER,
+  HANDLE_LOADING_USER,
+} = actions;
 
 export type { UserState, User };
 
