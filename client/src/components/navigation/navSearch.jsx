@@ -1,23 +1,25 @@
-import React from "react";
-import imgCart from "../../assets/img/core-img/cart.png";
-import imgFav from "../../assets/img/core-img/favorites.png";
-import imgSearch from "../../assets/img/core-img/search.png";
-import * as URL from "../../routes/url";
+import React, { useEffect } from 'react';
+import imgCart from '../../assets/img/core-img/cart.png';
+import imgSearch from '../../assets/img/core-img/search.png';
+import * as URL from '../../routes/url';
+
+import { useCart } from '../../hooks';
 
 function NavSearch() {
-  let qty = 0;
+  const { numProducts, getCart } = useCart();
+
+  useEffect(() => {
+    getCart();
+  }, []);
 
   return (
-    <div className="cart-fav-search mb-100">
-      <a to={URL.CART} className="cart-nav">
-        <img src={imgCart} alt="" /> Cart <span>({qty})</span>
+    <div className='cart-fav-search mb-100'>
+      <a href={URL.CART} className={`cart-nav`}>
+        <img src={imgCart} alt='' /> Cart <span>({numProducts})</span>
       </a>
 
-      <a href="#" className="fav-nav">
-        <img src={imgFav} alt="" /> Favourite
-      </a>
-      <a href="#" className="search-nav">
-        <img src={imgSearch} alt="" /> Search
+      <a href='#' className='search-nav'>
+        <img src={imgSearch} alt='' /> Search
       </a>
     </div>
   );

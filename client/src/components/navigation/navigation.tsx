@@ -5,7 +5,6 @@ import NavSearch from "./navSearch";
 import NavSocial from "./navSocial";
 
 Navigation.propTypes = {};
-
 function Navigation() {
   return (
     <header className="header-area clearfix">

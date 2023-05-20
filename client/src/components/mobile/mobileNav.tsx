@@ -1,4 +1,3 @@
-import React from "react";
 import image from "../../assets/img/core-img/logo.png";
 
 function MobileNav() {

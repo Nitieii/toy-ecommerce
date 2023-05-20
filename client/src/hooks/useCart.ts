@@ -12,7 +12,7 @@ const useCart = () => {
 
   const { enqueueSnackbar } = useAlert();
 
-  const { products, loadingCart, totalPrice } = useSelector(
+  const { products, loadingCart, totalPrice, numProducts } = useSelector(
     (state: any) => state.cart
   );
 
@@ -122,6 +122,7 @@ const useCart = () => {
     products,
     totalPrice,
     loadingCart,
+    numProducts,
     getCart,
     handleAddToCart,
     updateCart,

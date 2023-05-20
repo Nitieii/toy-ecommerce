@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <nav className='amado-nav'>
       <ul>
-        <li className={location === '/' ? 'active' : ''}>
+        <li className={location === '/home' ? 'active' : ''}>
           <a href={URL.ROOT}>Home</a>
         </li>
         <li
@@ -25,6 +25,12 @@ function NavBar() {
         </li>
         <li className={location === '/checkout' ? 'active' : ''}>
           <a href={URL.CHECKOUT}>Checkout</a>
+        </li>
+        <li>
+          <a href={URL.ROOT}>Login / Sign up</a>
+        </li>
+        <li>
+          <a href={URL.ROOT}>My Profile</a>
         </li>
       </ul>
     </nav>
