@@ -9,9 +9,9 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 axiosInstance.interceptors.request.use(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   (config: AxiosRequestConfig): AxiosRequestConfig => {
     const token: string | null = localStorage.getItem('access_token');
 
@@ -21,12 +21,10 @@ axiosInstance.interceptors.request.use(
       ...config.headers,
       Authorization: token ? `Bearer ${token}` : '',
     };
+
     return config;
   },
-  (error) =>
-    Promise.reject(
-      (error.response && error.response.data) || 'Something went wrong'
-    )
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(

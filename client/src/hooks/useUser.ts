@@ -73,6 +73,7 @@ const useUser = () => {
       const redirectPath = localStorage.getItem('redirect_url');
 
       if (redirectPath) {
+        localStorage.removeItem('redirect_url');
         return window.location.replace(redirectPath);
       }
 
@@ -123,6 +124,7 @@ const useUser = () => {
       const redirectPath = localStorage.getItem('redirect_url');
 
       if (redirectPath) {
+        localStorage.removeItem('redirect_url');
         return window.location.replace(redirectPath);
       }
 
