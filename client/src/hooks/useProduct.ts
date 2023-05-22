@@ -8,6 +8,7 @@ import {
   HANDLE_LOADING,
   SET_CURRENT_PAGE,
   SET_PRODUCT,
+  SET_SEARCH_MODE,
 } from '../store/slices/ProductsSlice.js';
 
 import axios from '../utils/axios.js';
@@ -16,8 +17,15 @@ const useProduct = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useAlert();
 
-  const { products, loading, currentPage, totalPage, totalLength, product } =
-    useSelector((state: any) => state.product);
+  const {
+    products,
+    loading,
+    currentPage,
+    totalPage,
+    totalLength,
+    product,
+    searchMode,
+  } = useSelector((state: any) => state.product);
 
   const getProductsByCategory = async (category: string, page: number) => {
     try {
@@ -63,6 +71,30 @@ const useProduct = () => {
       return enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
+  const handleSearchProducts = async (query: string, page: number) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      // Remove all empty space at the beginning and end of the string
+      query = query.trim();
+
+      const { data } = await axios.get(GET_API(query, page).SEARCH_PRODUCTS);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return enqueueSnackbar(data.message, { variant: 'error' });
+      }
+
+      dispatch(SET_PRODUCTS(data));
+      dispatch(HANDLE_LOADING(false));
+
+      return;
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
 
   const handleCurrentPage = (page: number) => {
     dispatch(SET_CURRENT_PAGE(page));
@@ -72,6 +104,10 @@ const useProduct = () => {
     dispatch(HANDLE_LOADING(loading));
   };
 
+  const handleSearchMode = (searchMode: boolean) => {
+    dispatch(SET_SEARCH_MODE(searchMode));
+  };
+
   return {
     products,
     product,
@@ -79,10 +115,13 @@ const useProduct = () => {
     currentPage,
     totalPage,
     totalLength,
+    searchMode,
     handleLoading,
     getProductsByCategory,
     handleCurrentPage,
     handleGetProduct,
+    handleSearchMode,
+    handleSearchProducts,
   };
 };
 

@@ -3,12 +3,17 @@ import imgCart from '../../assets/img/core-img/cart.png';
 import imgSearch from '../../assets/img/core-img/search.png';
 import * as URL from '../../routes/url';
 
-import { useCart } from '../../hooks';
+import { useCart, useProduct } from '../../hooks';
 
 function NavSearch() {
   const { numProducts, getCart } = useCart();
+  const { handleSearchMode } = useProduct();
 
   useEffect(() => {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) return;
+
     getCart();
   }, []);
 
@@ -18,7 +23,12 @@ function NavSearch() {
         <img src={imgCart} alt='' /> Cart <span>({numProducts})</span>
       </a>
 
-      <a href='#' className='search-nav'>
+      <a
+        className='search-nav'
+        onClick={() => {
+          handleSearchMode(true);
+        }}
+      >
         <img src={imgSearch} alt='' /> Search
       </a>
     </div>

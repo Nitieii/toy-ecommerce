@@ -18,6 +18,7 @@ interface ProductState {
   currentPage: number;
   totalPages: number;
   totalLength: number;
+  searchMode: boolean;
 }
 
 const initalState: ProductState = {
@@ -36,6 +37,7 @@ const initalState: ProductState = {
     images: [''],
     category: '',
   },
+  searchMode: false,
 };
 
 const slice = createSlice({
@@ -56,6 +58,10 @@ const slice = createSlice({
       state.product = action.payload;
     },
 
+    SET_SEARCH_MODE: (state, action: PayloadAction<boolean>) => {
+      state.searchMode = action.payload;
+    },
+
     HANDLE_LOADING: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -64,8 +70,13 @@ const slice = createSlice({
 
 const { reducer, actions } = slice;
 
-export const { SET_PRODUCTS, HANDLE_LOADING, SET_CURRENT_PAGE, SET_PRODUCT } =
-  actions;
+export const {
+  SET_SEARCH_MODE,
+  SET_PRODUCTS,
+  HANDLE_LOADING,
+  SET_CURRENT_PAGE,
+  SET_PRODUCT,
+} = actions;
 
 export type { ProductState, Product };
 

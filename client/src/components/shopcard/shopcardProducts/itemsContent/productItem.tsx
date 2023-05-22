@@ -16,11 +16,6 @@ function ProductItem() {
     // let quantity = 1;
   }
 
-  // let counter = 0;
-  // let startItem = (Number(activePage) - 1) * Number(viewListSelectedItem); // 0
-  // let endItem = startItem + Number(viewListSelectedItem); // 4
-  // let itemCounter = 0;
-
   return products.map((item: Product) => {
     return (
       <div key={item._id} className='col-12 col-sm-6 col-md-12 col-xl-6'>

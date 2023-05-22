@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Login from '../components/authenticate/login.tsx';
-import Signup from '../components/authenticate/signup.tsx';
+import Login from '../components/authenticate/login';
+import Signup from '../components/authenticate/signup';
 
 interface GuestGuardProps {
   children: React.ReactNode;
@@ -13,9 +13,11 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
 
-    if (!token) return navigate('/login');
+    if (!token && children === <Signup />) return navigate('/signup');
 
-    if (token && children === <Login /> && children === <Signup />)
+    if (!token && children !== <Signup />) return navigate('/login');
+
+    if (token && (children === <Login /> || children === <Signup />))
       return navigate('/');
   }, []);
 

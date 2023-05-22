@@ -3,6 +3,7 @@ const GET_API = (id: string, page = 1) => {
     // products
     GET_PRODUCTS: `/products`,
     GET_PRODUCT: `/product/${id}`,
+    SEARCH_PRODUCTS: `/products/search?query=${id}&page=${page}`,
 
     // categories
     GET_CATEGORIES: `/categories`,
@@ -24,6 +25,9 @@ const POST_API = () => {
     // authenticate
     LOGIN: `/login`,
     SIGNUP: `/signup`,
+
+    // checkout
+    CHECKOUT: `/checkout`,
   };
 };
 

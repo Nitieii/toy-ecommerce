@@ -8,7 +8,7 @@ Navigation.propTypes = {};
 function Navigation() {
   return (
     <header className="header-area clearfix">
-      <NavLogo />
+      {/*<NavLogo />*/}
       <NavBar />
 
       <NavSearch />

@@ -7,6 +7,14 @@ function SpchTotalProducts() {
   const endItem = startItem + Number(totalLength);
 
   if (!loading) {
+    if (!totalLength) {
+      return (
+        <div className='total-products'>
+          <p>No products found</p>
+        </div>
+      );
+    }
+
     return (
       <div className='total-products'>
         <p>{`Showing ${startItem + 1} - ${endItem}`}</p>

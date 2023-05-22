@@ -32,6 +32,10 @@ export default function Router() {
           element: <ShopPage />,
         },
         {
+          path: 'search',
+          element: <SearchPage />,
+        },
+        {
           path: 'product/:id',
           element: <ProductDetailPage />,
         },
@@ -40,6 +44,14 @@ export default function Router() {
           element: (
             <GuestGuard>
               <ShoppingCart />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: 'checkout',
+          element: (
+            <GuestGuard>
+              <Checkout />
             </GuestGuard>
           ),
         },
@@ -75,3 +87,9 @@ const ShoppingCart = Loadable(
 
 const Login = Loadable(React.lazy(() => import('../pages/Login.page.tsx')));
 const Signup = Loadable(React.lazy(() => import('../pages/Signup.page.tsx')));
+const Checkout = Loadable(
+  React.lazy(() => import('../pages/Checkout.page.tsx'))
+);
+const SearchPage = Loadable(
+  React.lazy(() => import('../pages/Search.page.tsx'))
+);

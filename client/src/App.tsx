@@ -2,12 +2,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Routes from './routes';
-import { useUser } from './hooks';
+import { useUser, useProduct } from './hooks';
 import { useEffect, useState } from 'react';
 import handleTokenExpired from './utils/jwt.ts';
 
 function App() {
   const { handleAuthenticated } = useUser();
+
+  const { searchMode } = useProduct();
 
   const [expiredTimer, setExpiredTimer] = useState<number | undefined>(
     undefined
@@ -29,6 +31,10 @@ function App() {
       clearTimeout(timer);
     };
   }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle('search-wrapper-on');
+  }, [searchMode]);
 
   // Check if token is expires
   // If token is expired, redirect to login page

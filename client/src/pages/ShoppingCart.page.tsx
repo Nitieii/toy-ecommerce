@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Spinner from '../components/spinner/spinner';
 
 const ShoppingCartPage = () => {
-  const { getCart, loadingCart, cart } = useCart();
+  const { getCart, loadingCart } = useCart();
 
   useEffect(() => {
     getCart();

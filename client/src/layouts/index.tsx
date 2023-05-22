@@ -16,13 +16,13 @@ export default function index() {
   }, [isAuthenticated]);
 
   return (
-    <>
+    <div>
       <div className='main-content-wrapper d-flex clearfix'>
         <Header />
         <Outlet />
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 }
