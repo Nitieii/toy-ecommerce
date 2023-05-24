@@ -14,6 +14,7 @@ const GET_API = (id: string, page = 1) => {
 
     // user
     GET_USER: `/user`,
+    GET_USERS: `/users?page=${page}`,
 
     // order
     GET_ORDERS: `/orders?page=${page}`,

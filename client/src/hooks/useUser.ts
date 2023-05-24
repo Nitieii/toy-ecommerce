@@ -5,6 +5,10 @@ import { GET_API, POST_API } from '../constants/api.js';
 
 import {
   SET_USER,
+  SET_USERS,
+  SET_TOTAL_LENGTH,
+  SET_TOTAL_PAGES,
+  SET_CURRENT_PAGE,
   HANDLE_LOADING_USER,
   HANDLE_AUTHENTICATED,
 } from '../store/slices/UserSlice.js';
@@ -16,9 +20,41 @@ const useUser = () => {
 
   const { enqueueSnackbar } = useAlert();
 
-  const { user, loadingUser, isAuthenticated } = useSelector(
-    (state: any) => state.user
-  );
+  const {
+    user,
+    loadingUser,
+    isAuthenticated,
+    users,
+    totalLength,
+    totalPages,
+    currentPage,
+  } = useSelector((state: any) => state.user);
+
+  const handleGetUsers = async (page: number) => {
+    try {
+      dispatch(HANDLE_LOADING_USER(true));
+
+      const { data } = await axios.get(GET_API('', page).GET_USERS);
+
+      console.log('data', data);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING_USER(false));
+        return alert("Can't get users");
+      }
+
+      dispatch(SET_USERS(data.users));
+      dispatch(SET_TOTAL_LENGTH(data.totalLength));
+      dispatch(SET_TOTAL_PAGES(data.totalPages));
+      dispatch(HANDLE_LOADING_USER(false));
+
+      return;
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING_USER(false));
+
+      return enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
 
   const handleGetUser = async () => {
     try {
@@ -40,6 +76,10 @@ const useUser = () => {
 
       return enqueueSnackbar(error.message, { variant: 'error' });
     }
+  };
+
+  const handleCurrentPage = (page: number) => {
+    dispatch(SET_CURRENT_PAGE(page));
   };
 
   const handleLogin = async (email: string, password: string) => {
@@ -195,14 +235,19 @@ const useUser = () => {
 
   return {
     user,
+    users,
+    totalLength,
+    totalPages,
     loadingUser,
     isAuthenticated,
+    currentPage,
     handleGetUser,
+    handleGetUsers,
     handleLogin,
     handleRegister,
     handleAuthenticated,
+    handleCurrentPage,
     handleLogout,
   };
 };
-
 export default useUser;

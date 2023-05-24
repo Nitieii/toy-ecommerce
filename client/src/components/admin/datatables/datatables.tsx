@@ -47,7 +47,7 @@ const DataTables = (props: {
       },
       {
         name: 'name',
-        selector: (row) => row.name,
+        selector: (row) => row.fullname,
       },
       {
         name: 'email',
@@ -55,10 +55,12 @@ const DataTables = (props: {
       },
       {
         name: 'role',
-        selector: (row) => row.role,
+        selector: (row) => (row.is_admin ? 'admin' : 'user'),
       },
     ];
   }
+
+  console.log('data', data);
 
   return (
     <div

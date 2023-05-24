@@ -4,6 +4,7 @@ import GuestGuard from '../guards/GuestGuard';
 import MainLayout from '../layouts';
 import AuthGuard from '../guards/AuthGuard.tsx';
 import OrdersPage from '../pages/admin/orders.pages.tsx';
+import UsersPage from '../pages/admin/users.page.tsx';
 
 const Loadable = (Component: React.ComponentType<any>) => (props: any) => {
   return (
@@ -76,6 +77,10 @@ export default function Router() {
         {
           path: '/admin/orders',
           element: <OrdersPage />,
+        },
+        {
+          path: '/admin/users',
+          element: <UsersPage />,
         },
       ],
     },
