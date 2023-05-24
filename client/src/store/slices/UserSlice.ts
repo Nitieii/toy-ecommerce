@@ -4,6 +4,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
+  is_admin: boolean;
   token: {
     accessToken: string;
     refreshToken: string;
@@ -28,6 +29,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     SET_USER: (state, action: PayloadAction<User | null>) => {
+      console.log('SET_USER', action.payload);
       state.user = action.payload;
     },
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useUser } from '../../hooks';
-import Spinner from '../spinner/spinner';
+import Spinner from '../layouts/spinner/spinner';
 
 const FormSection = (props: any) => {
   const { title } = props;

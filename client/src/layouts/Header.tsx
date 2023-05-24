@@ -1,6 +1,6 @@
-import SearchBar from '../components/navigation/searchBar';
-import MobileNav from '../components/mobile/mobileNav';
-import Navigation from '../components/navigation/navigation';
+import SearchBar from '../components/layouts/navigation/searchBar';
+import MobileNav from '../components/layouts/mobile/mobileNav';
+import Navigation from '../components/layouts/navigation/navigation';
 
 const Header = () => {
   return (

@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 import GuestGuard from '../guards/GuestGuard';
 import MainLayout from '../layouts';
+import AuthGuard from '../guards/AuthGuard.tsx';
+import OrdersPage from '../pages/admin/orders.pages.tsx';
 
 const Loadable = (Component: React.ComponentType<any>) => (props: any) => {
   return (
@@ -13,7 +15,7 @@ const Loadable = (Component: React.ComponentType<any>) => (props: any) => {
 
 export default function Router() {
   return useRoutes([
-    // Main Routes
+    // User Routes
     {
       path: '/',
       element: (
@@ -57,6 +59,26 @@ export default function Router() {
         },
       ],
     },
+
+    // Admin Routes
+    {
+      path: '/admin',
+      element: (
+        <AuthGuard>
+          <MainLayout />
+        </AuthGuard>
+      ),
+      children: [
+        {
+          path: '/admin/products',
+          element: <ProductsPage />,
+        },
+        {
+          path: '/admin/orders',
+          element: <OrdersPage />,
+        },
+      ],
+    },
     {
       path: '/login',
       element: (
@@ -76,20 +98,31 @@ export default function Router() {
   ]);
 }
 
-const HomePage = Loadable(React.lazy(() => import('../pages/Home.page.tsx')));
-const ShopPage = Loadable(React.lazy(() => import('../pages/Shop.page.tsx')));
+const HomePage = Loadable(
+  React.lazy(() => import('../pages/user/Home.page.tsx'))
+);
+const ShopPage = Loadable(
+  React.lazy(() => import('../pages/user/Shop.page.tsx'))
+);
 const ProductDetailPage = Loadable(
-  React.lazy(() => import('../pages/ProductDetail.page.tsx'))
+  React.lazy(() => import('../pages/user/ProductDetail.page.tsx'))
 );
 const ShoppingCart = Loadable(
-  React.lazy(() => import('../pages/ShoppingCart.page.tsx'))
+  React.lazy(() => import('../pages/user/ShoppingCart.page.tsx'))
 );
 
-const Login = Loadable(React.lazy(() => import('../pages/Login.page.tsx')));
-const Signup = Loadable(React.lazy(() => import('../pages/Signup.page.tsx')));
+const Login = Loadable(
+  React.lazy(() => import('../pages/user/Login.page.tsx'))
+);
+const Signup = Loadable(
+  React.lazy(() => import('../pages/user/Signup.page.tsx'))
+);
 const Checkout = Loadable(
-  React.lazy(() => import('../pages/Checkout.page.tsx'))
+  React.lazy(() => import('../pages/user/Checkout.page.tsx'))
 );
 const SearchPage = Loadable(
-  React.lazy(() => import('../pages/Search.page.tsx'))
+  React.lazy(() => import('../pages/user/Search.page.tsx'))
+);
+const ProductsPage = Loadable(
+  React.lazy(() => import('../pages/admin/products.page.tsx'))
 );

@@ -9,6 +9,8 @@ import {
   SET_CURRENT_PAGE,
   SET_PRODUCT,
   SET_SEARCH_MODE,
+  SET_TOTAL_PAGES,
+  SET_TOTAL_LENGTH,
 } from '../store/slices/ProductsSlice.js';
 
 import axios from '../utils/axios.js';
@@ -27,6 +29,29 @@ const useProduct = () => {
     searchMode,
   } = useSelector((state: any) => state.product);
 
+  const handleGetProducts = async (page: number) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const { data } = await axios.get(GET_API('', page).GET_PRODUCTS);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert(data.message);
+      }
+
+      dispatch(SET_CURRENT_PAGE(page));
+      dispatch(SET_TOTAL_PAGES(data.totalPages));
+      dispatch(SET_TOTAL_LENGTH(data.totalProducts));
+
+      dispatch(SET_PRODUCTS(data.products));
+      dispatch(HANDLE_LOADING(false));
+
+      return;
+    } catch (error: any) {
+      return alert(error.message);
+    }
+  };
   const getProductsByCategory = async (category: string, page: number) => {
     try {
       dispatch(HANDLE_LOADING(true));
@@ -40,7 +65,10 @@ const useProduct = () => {
 
       dispatch(SET_CURRENT_PAGE(page));
 
-      dispatch(SET_PRODUCTS(data));
+      dispatch(SET_PRODUCTS(data.products));
+
+      dispatch(SET_TOTAL_LENGTH(data.totalLength));
+      dispatch(SET_TOTAL_PAGES(data.totalPage));
       dispatch(HANDLE_LOADING(false));
 
       return;
@@ -116,6 +144,7 @@ const useProduct = () => {
     totalPage,
     totalLength,
     searchMode,
+    handleGetProducts,
     handleLoading,
     getProductsByCategory,
     handleCurrentPage,

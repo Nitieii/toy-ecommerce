@@ -1,38 +1,21 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// hooks
-import { useUser } from '../hooks';
-// ----------------------------------------------------------------------
+interface GuestGuardProps {
+  children: React.ReactNode;
+}
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export default function AuthGuard({ children }) {
+const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useUser();
-  const { pathname } = useLocation();
-  const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    const requestedLocation = localStorage.getItem('path');
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if (!isAuthenticated) {
-      localStorage.setItem('path', pathname || '');
-      return navigate('/login');
-    }
-
-    setLoading(false);
-    if (requestedLocation && requestedLocation !== pathname) {
-      localStorage.removeItem('path');
-      return navigate(requestedLocation);
-    }
-
-    return navigate('/');
-  }, [isAuthenticated]);
-
-  if (loading) {
-    return <div>loading auth</div>;
-  }
+    if (!token || !is_admin) return navigate('/login');
+  }, []);
 
   return <>{children}</>;
-}
+};
+
+export default GuestGuard;

@@ -77,6 +77,10 @@ const useUser = () => {
         return window.location.replace(redirectPath);
       }
 
+      if (!redirectPath && data.user.is_admin) {
+        return window.location.replace('/admin/products');
+      }
+
       return window.location.replace('/');
     } catch (error: any) {
       dispatch(HANDLE_LOADING_USER(false));

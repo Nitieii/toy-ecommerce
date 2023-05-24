@@ -19,7 +19,7 @@ const getAllProducts = catchAsync(async (req, res) => {
       status: "success",
       products: [],
       totalPage: 0,
-      totalLenght: 0
+      totalLength: 0
     });
   }
 

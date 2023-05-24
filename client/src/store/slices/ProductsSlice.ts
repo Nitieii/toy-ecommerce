@@ -44,14 +44,20 @@ const slice = createSlice({
   name: 'product',
   initialState: initalState,
   reducers: {
-    SET_PRODUCTS: (state, action: PayloadAction<any>) => {
-      state.products = action.payload.products;
-      state.totalPages = action.payload.totalPages;
-      state.totalLength = action.payload.totalLength;
+    SET_PRODUCTS: (state, action: PayloadAction<Product[]>) => {
+      state.products = action.payload;
     },
 
     SET_CURRENT_PAGE: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
+    },
+
+    SET_TOTAL_PAGES: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
+    },
+
+    SET_TOTAL_LENGTH: (state, action: PayloadAction<number>) => {
+      state.totalLength = action.payload;
     },
 
     SET_PRODUCT: (state, action: PayloadAction<Product>) => {
@@ -76,6 +82,8 @@ export const {
   HANDLE_LOADING,
   SET_CURRENT_PAGE,
   SET_PRODUCT,
+  SET_TOTAL_LENGTH,
+  SET_TOTAL_PAGES,
 } = actions;
 
 export type { ProductState, Product };

@@ -4,15 +4,15 @@ const { authenticateToken, authenticateAdmin } = require("#middlewares");
 const { orderCtrl } = require("#controllers");
 
 router.get(
-	"/orders",
-	authenticateToken,
-	authenticateAdmin,
-	orderCtrl.getAllOrdersWithoutLimit
+  "/orders",
+  authenticateToken,
+  authenticateAdmin,
+  orderCtrl.getAllOrders
 );
 
-router.get("/orders/:id", authenticateToken, orderCtrl.getOrder);
+router.get("/order/:id", authenticateToken, orderCtrl.getOrder);
 
-router.post("/orders", authenticateToken, orderCtrl.createOrder);
+router.post("/order", authenticateToken, orderCtrl.createOrder);
 
 router.put("/orders/:id", authenticateToken, orderCtrl.confirmOrder);
 
