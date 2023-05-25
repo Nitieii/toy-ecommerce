@@ -44,13 +44,6 @@ const signUp = catchAsync(async (req, res) => {
       }
     });
   } catch (error) {
-    if (error.code === 11000) {
-      return res.send({
-        status: "error",
-        message: "Email already exists"
-      });
-    }
-
     return res.send({
       status: "error",
       message: error.message
