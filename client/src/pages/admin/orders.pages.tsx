@@ -31,6 +31,9 @@ const OrdersPage = () => {
       totalLength={totalLength}
       onPageChange={handldePageChange}
       loading={loadingOrder}
+      handleSearch={() => {
+        console.log('search');
+      }}
     />
   );
 };

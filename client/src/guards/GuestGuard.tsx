@@ -15,7 +15,7 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
 
     if (!token && children === <Signup />) return navigate('/signup');
 
-    if (!token && children !== <Signup />) return navigate('/login');
+    // if (!token && children !== <Signup />) return navigate('/login');
 
     if (token && (children === <Login /> || children === <Signup />))
       return navigate('/');

@@ -7,6 +7,7 @@ const ProductsPage = () => {
     products,
     handleGetProducts,
     handleCurrentPage,
+    handleSearchProducts,
     loading,
     currentPage,
     totalPage,
@@ -17,7 +18,7 @@ const ProductsPage = () => {
     handleGetProducts(1);
   }, []);
 
-  const handldePageChange = () => {
+  const handlePageChange = () => {
     if (currentPage + 1 > totalPage) return;
     handleCurrentPage(currentPage + 1);
 
@@ -29,7 +30,8 @@ const ProductsPage = () => {
       tableName={'products'}
       data={products}
       totalLength={totalLength}
-      onPageChange={handldePageChange}
+      onPageChange={handlePageChange}
+      handleSearch={handleSearchProducts}
       loading={loading}
     />
   );

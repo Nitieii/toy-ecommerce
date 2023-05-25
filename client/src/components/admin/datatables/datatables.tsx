@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 
 interface Column {
@@ -11,8 +12,12 @@ const DataTables = (props: {
   totalLength: number;
   onPageChange: any;
   loading: boolean;
+  handleSearch: any;
 }) => {
-  const { tableName, data, totalLength, onPageChange, loading } = props;
+  const { tableName, data, totalLength, onPageChange, loading, handleSearch } =
+    props;
+
+  const [searchText, setSearchText] = useState('');
 
   let columns: Column[] = [];
 
@@ -60,7 +65,11 @@ const DataTables = (props: {
     ];
   }
 
-  console.log('data', data);
+  const handleSearchData = (e: any) => {
+    setSearchText(e.target.value);
+
+    handleSearch(e.target.value);
+  };
 
   return (
     <div
@@ -78,6 +87,14 @@ const DataTables = (props: {
             : 'Users'}{' '}
           Dashboard
         </h2>
+
+        <input
+          type='text'
+          placeholder='Search the product'
+          value={searchText}
+          onChange={(e) => handleSearchData(e)}
+          style={{ marginTop: 5, marginBottom: 5, padding: 5, fontSize: 12 }}
+        />
       </div>
 
       <DataTable

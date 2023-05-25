@@ -113,7 +113,8 @@ const useProduct = () => {
         return enqueueSnackbar(data.message, { variant: 'error' });
       }
 
-      dispatch(SET_PRODUCTS(data));
+      dispatch(SET_PRODUCTS(data.products));
+
       dispatch(HANDLE_LOADING(false));
 
       return;

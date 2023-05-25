@@ -5,45 +5,59 @@ const { User, RefreshToken } = require("#models");
 const { catchAsync } = require("#utils");
 
 const signUp = catchAsync(async (req, res) => {
-  const { fullname, email, password: plainTextPassword } = req.body;
+  try {
+    const { fullname, email, password: plainTextPassword } = req.body;
 
-  const password = await argon2.hash(plainTextPassword);
+    const password = await argon2.hash(plainTextPassword);
 
-  const user = await User.create({ fullname, email, password });
+    const user = await User.create({ fullname, email, password });
 
-  await user.save();
+    await user.save();
 
-  // Generate token
-  const access_token = jwt.sign(
-    {
-      id: user._id,
-      email: user.email
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: "1d" }
-  );
+    // Generate token
+    const access_token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-  const refresh_token = jwt.sign(
-    {
-      id: user._id,
-      email: user.email
-    },
-    process.env.JWT_SECRET
-  );
+    const refresh_token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email
+      },
+      process.env.JWT_SECRET
+    );
 
-  const refresh = new RefreshToken({ token: refresh_token });
-  await refresh.save();
+    const refresh = new RefreshToken({ token: refresh_token });
+    await refresh.save();
 
-  return res.send({
-    status: "success",
-    message: `User created successfully`,
-    user,
-    token: {
-      access_token,
-      refresh_token,
-      expires_in: "1d"
+    return res.send({
+      status: "success",
+      message: `User created successfully`,
+      user,
+      token: {
+        access_token,
+        refresh_token,
+        expires_in: "1d"
+      }
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.send({
+        status: "error",
+        message: "Email already exists"
+      });
     }
-  });
+
+    return res.send({
+      status: "error",
+      message: error.message
+    });
+  }
 });
 
 const logIn = catchAsync(async (req, res) => {

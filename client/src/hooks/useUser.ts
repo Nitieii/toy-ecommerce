@@ -36,8 +36,6 @@ const useUser = () => {
 
       const { data } = await axios.get(GET_API('', page).GET_USERS);
 
-      console.log('data', data);
-
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING_USER(false));
         return alert("Can't get users");
@@ -150,6 +148,9 @@ const useUser = () => {
 
       dispatch(SET_USER(data.user));
       dispatch(HANDLE_LOADING_USER(false));
+
+      // Call api create cart for user
+      await axios.post(POST_API().CREATE_CART);
 
       alert('Register successfully!');
 

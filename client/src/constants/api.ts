@@ -24,15 +24,18 @@ const GET_API = (id: string, page = 1) => {
 
 const POST_API = () => {
   return {
+    // create cart
+    CREATE_CART: `/cart`,
+
     // cart
-    ADD_TO_CART: ` / cart / add`,
+    ADD_TO_CART: `/cart/add`,
 
     // authenticate
-    LOGIN: ` / login`,
-    SIGNUP: ` / signup`,
+    LOGIN: `/login`,
+    SIGNUP: `/signup`,
 
     // checkout
-    CHECKOUT: ` / checkout`,
+    CHECKOUT: `/checkout`,
   };
 };
 

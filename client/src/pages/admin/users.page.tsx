@@ -31,6 +31,9 @@ const ProductsPage = () => {
       totalLength={totalLength}
       onPageChange={handldePageChange}
       loading={loadingUser}
+      handleSearch={() => {
+        console.log('search');
+      }}
     />
   );
 };

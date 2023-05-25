@@ -40,7 +40,7 @@ const getUser = catchAsync(async (req, res) => {
     const { id } = req.params;
 
     // Check if user is admin or user is updating his/her own account
-    if (req.user.is_admin == false && req.user._id != id) {
+    if (req.user.is_admin === false && req.user._id !== id) {
       return res.send({
         status: "error",
         message: "You are not authorized to update this user"
@@ -84,7 +84,7 @@ const updateUser = catchAsync(async (req, res) => {
     const { id } = req.params;
 
     // Check if user is admin or user is updating his/her own account
-    if (req.user.is_admin == false && req.user._id != id) {
+    if (req.user.is_admin === false && req.user._id !== id) {
       return res.send({
         status: "error",
         message: "You are not authorized to update this user"
@@ -112,7 +112,7 @@ const updateUser = catchAsync(async (req, res) => {
       user.password = password;
     }
 
-    if (req.body.is_admin && req.user.is_admin == true) {
+    if (req.body.is_admin && req.user.is_admin === true) {
       user.is_admin = req.body.is_admin;
     }
 

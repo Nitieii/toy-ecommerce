@@ -28,6 +28,7 @@
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-data-table-component": "^7.5.3",
+    "react-data-table-component-extensions": "^1.6.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
