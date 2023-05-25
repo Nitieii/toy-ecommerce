@@ -12,8 +12,6 @@ const signUp = catchAsync(async (req, res) => {
 
     const user = await User.create({ fullname, email, password });
 
-    await user.save();
-
     // Generate token
     const access_token = jwt.sign(
       {
