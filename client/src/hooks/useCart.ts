@@ -49,6 +49,7 @@ const useCart = () => {
 
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
+        console.log(data.message);
         return alert("Can't add to cart");
       }
 

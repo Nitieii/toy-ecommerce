@@ -149,11 +149,6 @@ const useUser = () => {
       dispatch(SET_USER(data.user));
       dispatch(HANDLE_LOADING_USER(false));
 
-      // Call api create cart for user
-      await axios.post(POST_API().CREATE_CART);
-
-      alert('Register successfully!');
-
       // Set user to local storage
       localStorage.setItem('user', JSON.stringify(data.user));
 
@@ -165,6 +160,8 @@ const useUser = () => {
 
       // Set expires at to local storage
       convertExpiresInToExpiresAt(data.token.expires_in);
+
+      alert('Register successfully!');
 
       const redirectPath = localStorage.getItem('redirect_url');
 

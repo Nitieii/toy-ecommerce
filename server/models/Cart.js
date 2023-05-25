@@ -14,8 +14,7 @@ const Cart = new mongoose.Schema(
         product: {
           type: mongoose.Schema.ObjectId,
           ref: "Product",
-          required: [true, "Product is required"],
-          unique: [true, "Product already exists in cart"]
+          required: [true, "Product is required"]
         },
         quantity: {
           type: Number,
