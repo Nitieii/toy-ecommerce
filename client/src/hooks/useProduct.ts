@@ -1,7 +1,7 @@
 import useAlert from './useAlert';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_API } from '../constants/api.js';
+import { GET_API, PUT_API } from '../constants/api.js';
 
 import {
   SET_PRODUCTS,
@@ -125,6 +125,29 @@ const useProduct = () => {
     }
   };
 
+  const handleUpdateProduct = async (id: string, data: FormData) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const res = await axios.put(`${PUT_API().UPDATE_PRODUCT}/${id}`, data);
+
+      if (res.data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert(res.data.message);
+      }
+
+      dispatch(HANDLE_LOADING(false));
+
+      alert('Successfully update the product');
+
+      return window.location.reload();
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(error.message);
+    }
+  };
+
   const handleCurrentPage = (page: number) => {
     dispatch(SET_CURRENT_PAGE(page));
   };
@@ -152,7 +175,7 @@ const useProduct = () => {
     handleGetProduct,
     handleSearchMode,
     handleSearchProducts,
+    handleUpdateProduct,
   };
 };
-
 export default useProduct;

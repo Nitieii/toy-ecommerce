@@ -128,7 +128,9 @@ const updateProduct = catchAsync(async (req, res) => {
       product.images = keptImages
         ? [...keptImages, ...uploadImages]
         : uploadImages;
-    } else if (keptImages) {
+    }
+
+    if (keptImages) {
       const imagesToDelete = product.images.filter(
         (image) => !keptImages.includes(image)
       );

@@ -75,6 +75,10 @@ export default function Router() {
           element: <ProductsPage />,
         },
         {
+          path: '/admin/products/:id/',
+          element: <ProductDetailAdmin />,
+        },
+        {
           path: '/admin/orders',
           element: <OrdersPage />,
         },
@@ -111,6 +115,10 @@ const ShopPage = Loadable(
 );
 const ProductDetailPage = Loadable(
   React.lazy(() => import('../pages/user/ProductDetail.page.tsx'))
+);
+
+const ProductDetailAdmin = Loadable(
+  React.lazy(() => import('../pages/admin/productdetail.page.tsx'))
 );
 const ShoppingCart = Loadable(
   React.lazy(() => import('../pages/user/ShoppingCart.page.tsx'))

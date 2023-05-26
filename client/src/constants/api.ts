@@ -42,32 +42,32 @@ const POST_API = () => {
 const PUT_API = () => {
   return {
     // product
-    UPDATE_PRODUCT: ` / product / update`,
+    UPDATE_PRODUCT: `/product`,
 
     // cart
-    UPDATE_CART: ` / cart / update`,
+    UPDATE_CART: `/cart/update`,
 
     // order
-    UPDATE_ORDER: ` / order / update`,
+    UPDATE_ORDER: `/order/update`,
 
     // user
-    UPDATE_USER: ` / user / update`,
+    UPDATE_USER: `/user/update`,
   };
 };
 
 const DELETE_API = () => {
   return {
     // product
-    DELETE_PRODUCT: ` / product / delete`,
+    DELETE_PRODUCT: `/product/delete`,
 
     // cart
-    DELETE_CART_ITEM: ` / cart / deleteItem`,
+    DELETE_CART_ITEM: `/cart/deleteItem`,
 
     // order
-    DELETE_ORDER: ` / order / delete`,
+    DELETE_ORDER: `/order/delete`,
 
     // user
-    DELETE_USER: ` / user / delete`,
+    DELETE_USER: `/user/delete`,
   };
 };
 

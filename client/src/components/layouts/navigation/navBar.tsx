@@ -1,5 +1,6 @@
 import * as URL from '../../../routes/url.ts';
 import { useUser } from '../../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
   const location = window.location.pathname;
@@ -8,19 +9,27 @@ function NavBar() {
 
   const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
 
+  const navigate = useNavigate();
+
+  const handleNavigation = (url: string) => {
+    navigate(url);
+  };
+
   return (
     <nav className='amado-nav'>
       <ul>
         {is_admin ? (
           <>
             <li className={location === '/admin/products' ? 'active' : ''}>
-              <a href={'products'}>Products</a>
+              <a onClick={() => handleNavigation('/admin/products')}>
+                Products
+              </a>
             </li>
             <li className={location === '/admin/orders' ? 'active' : ''}>
-              <a href={'orders'}>Orders</a>
+              <a onClick={() => handleNavigation('/admin/orders')}>Orders</a>
             </li>
             <li className={location === '/admin/users' ? 'active' : ''}>
-              <a href={'users'}>Users</a>
+              <a onClick={() => handleNavigation('/admin/users')}>Users</a>
             </li>
           </>
         ) : (
