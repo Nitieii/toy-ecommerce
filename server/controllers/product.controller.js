@@ -128,9 +128,7 @@ const updateProduct = catchAsync(async (req, res) => {
       product.images = keptImages
         ? [...keptImages, ...uploadImages]
         : uploadImages;
-    }
-
-    if (keptImages) {
+    } else if (keptImages) {
       const imagesToDelete = product.images.filter(
         (image) => !keptImages.includes(image)
       );
@@ -145,6 +143,7 @@ const updateProduct = catchAsync(async (req, res) => {
         product[field] = req.body[field];
       }
     });
+
 
     await product.save();
 

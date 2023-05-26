@@ -1,7 +1,7 @@
 import useAlert from './useAlert';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_API, PUT_API } from '../constants/api.js';
+import { GET_API, PUT_API, DELETE_API } from '../constants/api.js';
 
 import {
   SET_PRODUCTS,
@@ -148,6 +148,29 @@ const useProduct = () => {
     }
   };
 
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const res = await axios.delete(`${DELETE_API().DELETE_PRODUCT}/${id}`);
+
+      if (res.data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert(res.data.message);
+      }
+
+      dispatch(HANDLE_LOADING(false));
+
+      alert('Successfully delete the product');
+
+      return window.location.reload();
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(error.message);
+    }
+  };
+
   const handleCurrentPage = (page: number) => {
     dispatch(SET_CURRENT_PAGE(page));
   };
@@ -176,6 +199,7 @@ const useProduct = () => {
     handleSearchMode,
     handleSearchProducts,
     handleUpdateProduct,
+    handleDeleteProduct,
   };
 };
 export default useProduct;

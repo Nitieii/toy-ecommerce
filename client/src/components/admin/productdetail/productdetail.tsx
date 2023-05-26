@@ -10,7 +10,7 @@ const ProductDetailAdmin = (props: {
 }) => {
   const { product, categories } = props;
 
-  const { handleUpdateProduct } = useProduct();
+  const { handleUpdateProduct, handleDeleteProduct } = useProduct();
 
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
@@ -62,6 +62,18 @@ const ProductDetailAdmin = (props: {
         newImages.splice(index, 1);
         return newImages;
       });
+    }
+  };
+
+  const handleDelete = () => {
+    const confirm = window.confirm(
+      'Are you sure you want to delete this product?'
+    );
+
+    if (confirm) {
+      handleDeleteProduct(product._id);
+    } else {
+      return;
     }
   };
 
@@ -213,7 +225,7 @@ const ProductDetailAdmin = (props: {
                         <a
                           id='delete-btn'
                           className='btn amado-btn active'
-                          // onClick='deleteProduct()'
+                          onClick={handleDelete}
                           style={{ color: 'white' }}
                         >
                           Delete

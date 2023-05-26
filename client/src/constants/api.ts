@@ -58,7 +58,7 @@ const PUT_API = () => {
 const DELETE_API = () => {
   return {
     // product
-    DELETE_PRODUCT: `/product/delete`,
+    DELETE_PRODUCT: `/product`,
 
     // cart
     DELETE_CART_ITEM: `/cart/deleteItem`,
