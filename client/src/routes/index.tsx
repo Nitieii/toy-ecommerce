@@ -3,8 +3,6 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import GuestGuard from '../guards/GuestGuard';
 import MainLayout from '../layouts';
 import AuthGuard from '../guards/AuthGuard.tsx';
-import OrdersPage from '../pages/admin/orders.pages.tsx';
-import UsersPage from '../pages/admin/users.page.tsx';
 
 const Loadable = (Component: React.ComponentType<any>) => (props: any) => {
   return (
@@ -83,6 +81,10 @@ export default function Router() {
           element: <OrdersPage />,
         },
         {
+          path: '/admin/orders/:id/',
+          element: <OrderDetailPage />,
+        },
+        {
           path: '/admin/users',
           element: <UsersPage />,
         },
@@ -138,4 +140,13 @@ const SearchPage = Loadable(
 );
 const ProductsPage = Loadable(
   React.lazy(() => import('../pages/admin/products.page.tsx'))
+);
+const OrdersPage = Loadable(
+  React.lazy(() => import('../pages/admin/orders.pages.tsx'))
+);
+const UsersPage = Loadable(
+  React.lazy(() => import('../pages/admin/users.page.tsx'))
+);
+const OrderDetailPage = Loadable(
+  React.lazy(() => import('../pages/admin/orderdetail.page.tsx'))
 );

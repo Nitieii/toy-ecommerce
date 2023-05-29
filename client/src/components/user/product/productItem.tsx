@@ -10,7 +10,9 @@ function ProductItem(props: Product) {
         <img
           src={`${item.images[0]}`}
           alt=''
-          style={{ marginTop: '200px' }}
+          style={{
+            marginTop: '200px',
+          }}
           loading='lazy'
         />
         <div className='hover-content'>

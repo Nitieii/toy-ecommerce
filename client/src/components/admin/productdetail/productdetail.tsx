@@ -48,6 +48,7 @@ const ProductDetailAdmin = (props: {
     setUploadImages([...uploadImages, ...newImages]);
   };
 
+  // Handle remove images
   const handleRemoveImage = (imageType: string, index: number) => {
     if (imageType === 'keptImages') {
       setKeptImages((prevImages: string[]) =>
@@ -65,6 +66,7 @@ const ProductDetailAdmin = (props: {
     }
   };
 
+  // Handle delete product
   const handleDelete = () => {
     const confirm = window.confirm(
       'Are you sure you want to delete this product?'

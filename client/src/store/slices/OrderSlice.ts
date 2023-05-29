@@ -13,6 +13,7 @@ interface Order {
 
 interface OrderState {
   orders: Order[];
+  order: Order | null;
   currentPage: number;
   totalPage: number;
   totalLength: number;
@@ -21,6 +22,7 @@ interface OrderState {
 
 const initialState: OrderState = {
   orders: [],
+  order: null,
   currentPage: 1,
   totalLength: 0,
   totalPage: 0,
@@ -31,8 +33,12 @@ const slice = createSlice({
   name: 'order',
   initialState: initialState,
   reducers: {
-    SET_ORDER: (state, action: PayloadAction<Order[]>) => {
+    SET_ORDERS: (state, action: PayloadAction<Order[]>) => {
       state.orders = action.payload;
+    },
+
+    SET_ORDER: (state, action: PayloadAction<Order>) => {
+      state.order = action.payload;
     },
 
     SET_TOTAL_PAGE: (state, action: PayloadAction<number>) => {
@@ -56,6 +62,7 @@ const slice = createSlice({
 const { reducer, actions } = slice;
 
 export const {
+  SET_ORDERS,
   SET_ORDER,
   HANDLE_LOADING,
   SET_TOTAL_PAGE,

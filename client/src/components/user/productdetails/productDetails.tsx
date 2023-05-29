@@ -43,6 +43,7 @@ function ProductDetails() {
         return (
           <img
             className='d-block w-100'
+            style={{ height: '400px', objectFit: 'contain' }}
             src={`${item}`}
             alt='Third slide'
             key={item}

@@ -55,35 +55,40 @@ const getOrder = catchAsync(async (req, res) => {
 
 const createOrder = catchAsync(async (req, res) => {
   try {
-    const { user, cartId } = req;
+    const { user } = req;
 
-    const { shippingAddress, phone } = req.body;
-
-    // Get products from cart
-    const cart = await Cart.findById(cartId);
+    const cart = await Cart.findOne({ user: user.id });
 
     if (!cart) {
       throw new Error("Cart does not exist");
     }
 
-    const products = cart.products.map((product) => ({
-      product: product.product,
+    const { shippingAddress, phone, totalCost } = req.body;
+
+    const cartProducts = cart.products;
+    const products = cartProducts.map(product => ({
+      product: product.product._id,
       quantity: product.quantity
     }));
 
-    const order = await Order.create({
+    const newOrder = {
       user: user.id,
       products,
       shippingAddress,
-      phone
-    });
+      phone,
+      totalCost
+    };
+
+    console.log("newOrder", newOrder);
+
+    await Order.create(newOrder);
 
     return res.send({
       status: "success",
-      message: `Order created successfully`,
-      order
+      message: `Order created successfully`
     });
   } catch (error) {
+    console.log("error", error);
     return res.status(500).json({ message: error.message });
   }
 });

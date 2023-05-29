@@ -22,7 +22,14 @@ function ProductItem() {
         <div className='single-product-wrapper'>
           <div className='product-img'>
             <a href={`product/${item._id}`}>
-              <img src={item.images[0]} alt='' />
+              <img
+                src={item.images[0]}
+                alt=''
+                style={{
+                  height: '300px',
+                  objectFit: 'contain',
+                }}
+              />
             </a>
           </div>
 

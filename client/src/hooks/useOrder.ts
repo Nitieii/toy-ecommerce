@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_API } from '../constants/api.js';
 
 import {
+  SET_ORDERS,
   SET_ORDER,
   HANDLE_LOADING,
   SET_TOTAL_PAGE,
@@ -15,7 +16,7 @@ import axios from '../utils/axios.js';
 const useOrder = () => {
   const dispatch = useDispatch();
 
-  const { currentPage, orders, loadingOrder, totalPage, totalLength } =
+  const { currentPage, orders, loadingOrder, totalPage, totalLength, order } =
     useSelector((state: any) => state.order);
 
   const handleGetOrders = async (page: number) => {
@@ -32,7 +33,7 @@ const useOrder = () => {
 
           const { orders } = res.data;
 
-          dispatch(SET_ORDER(orders));
+          dispatch(SET_ORDERS(orders));
           dispatch(SET_TOTAL_PAGE(res.data.totalPage));
           dispatch(SET_TOTAL_LENGTH(res.data.totalLength));
 
@@ -64,9 +65,10 @@ const useOrder = () => {
 
       const { order } = data;
 
+      dispatch(SET_ORDER(order));
       dispatch(HANDLE_LOADING(false));
 
-      return order;
+      return;
     } catch (error: any) {
       dispatch(HANDLE_LOADING(false));
 
@@ -85,6 +87,7 @@ const useOrder = () => {
   return {
     currentPage,
     orders,
+    order,
     loadingOrder,
     totalPage,
     totalLength,

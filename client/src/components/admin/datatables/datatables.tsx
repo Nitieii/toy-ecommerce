@@ -36,12 +36,24 @@ const DataTables = (props: {
         selector: (row) => row._id,
       },
       {
-        name: 'total',
-        selector: (row) => row.totalPrice,
+        name: 'total ($)',
+        selector: (row) => row.totalCost,
       },
       {
         name: 'status',
-        selector: (row) => row.isPaid,
+        selector: (row) => row.status,
+      },
+      {
+        name: 'created at',
+        selector: (row) =>
+          new Date(row.createdAt).toLocaleString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
       },
     ];
   } else if (tableName === 'users') {
@@ -110,6 +122,8 @@ const DataTables = (props: {
         onRowDoubleClicked={(row) => {
           if (tableName === 'products') {
             window.location.href = `/admin/products/${row._id}`;
+          } else if (tableName === 'orders') {
+            window.location.href = `/admin/orders/${row._id}`;
           }
         }}
       />

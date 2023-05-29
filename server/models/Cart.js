@@ -38,16 +38,6 @@ const Cart = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Populate the user field
-Cart.pre(/^find/, function(next) {
-  this.populate({
-    path: "user",
-    select: "name email"
-  });
-
-  next();
-});
-
 // Populate the product field
 Cart.pre(/^find/, function(next) {
   this.populate({

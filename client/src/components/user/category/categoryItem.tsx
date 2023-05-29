@@ -14,7 +14,9 @@ function CategoryItem(props: Category) {
         <img
           src={`${item.categoryImg}`}
           alt=''
-          style={{ marginTop: '200px' }}
+          style={{
+            marginTop: '200px',
+          }}
           loading='lazy'
         />
         <div className='hover-content'>
