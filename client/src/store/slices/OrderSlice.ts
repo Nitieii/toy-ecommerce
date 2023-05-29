@@ -9,6 +9,7 @@ interface Order {
   totalCost: number;
   shippingAddress: string;
   phone: string;
+  createdAt: string;
 }
 
 interface OrderState {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_API } from '../constants/api.js';
+import { GET_API, PUT_API } from '../constants/api.js';
 
 import {
   SET_ORDERS,
@@ -76,6 +76,30 @@ const useOrder = () => {
     }
   };
 
+  const confirmOrder = async (id: string) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const { data } = await axios.put(`${PUT_API().CONFIRM_ORDER}/${id}`);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert("Can't confirm order");
+      }
+
+      const { order } = data;
+
+      dispatch(SET_ORDER(order));
+      dispatch(HANDLE_LOADING(false));
+
+      return alert('Confirm order successfully');
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(error.message);
+    }
+  };
+
   const handleLoading = (value: boolean) => {
     dispatch(HANDLE_LOADING(value));
   };
@@ -92,6 +116,7 @@ const useOrder = () => {
     totalPage,
     totalLength,
     handleGetOrders,
+    confirmOrder,
     getOrder,
     handleCurrentPage,
     handleLoading,

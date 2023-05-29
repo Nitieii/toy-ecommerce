@@ -14,6 +14,6 @@ router.get("/order/:id", authenticateToken, orderCtrl.getOrder);
 
 router.post("/order", authenticateToken, orderCtrl.createOrder);
 
-router.put("/orders/:id", authenticateToken, orderCtrl.confirmOrder);
+router.put("/order/:id", authenticateToken, orderCtrl.confirmOrder);
 
 module.exports = router;

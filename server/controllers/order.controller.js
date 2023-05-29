@@ -79,8 +79,6 @@ const createOrder = catchAsync(async (req, res) => {
       totalCost
     };
 
-    console.log("newOrder", newOrder);
-
     await Order.create(newOrder);
 
     return res.send({

@@ -25,7 +25,7 @@ const Order = new mongoose.Schema(
     ],
     status: {
       type: String,
-      enum: ["pending", "paid"],
+      enum: ["pending", "confirmed"],
       default: "pending"
     },
     totalCost: {
@@ -58,16 +58,6 @@ Order.pre("save", async function(next) {
     throw new Error("Cart does not exist");
   }
 
-  // Update the product quantity
-  cart.products.map(async (product) => {
-    const p = await Product.findById(product.product);
-    p.quantity -= product.quantity;
-    await p.save();
-  });
-
-  cart.products = [];
-  await cart.save();
-
   next();
 });
 
@@ -77,6 +67,23 @@ Order.pre(/^find/, function(next) {
   this.populate({
     path: "products.product",
     select: "name price images category"
+  });
+
+  next();
+});
+
+Order.pre("findByIdAndUpdate", async function(next) {
+  const cart = await Cart.findOne({ user: this.user });
+
+  if (!cart) {
+    throw new Error("Cart does not exist");
+  }
+
+  // Update the product quantity
+  cart.products.map(async (product) => {
+    const p = await Product.findById(product.product);
+    p.quantity -= product.quantity;
+    await p.save();
   });
 
   next();
