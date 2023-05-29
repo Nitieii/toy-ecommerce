@@ -48,7 +48,7 @@ const PUT_API = () => {
     UPDATE_CART: `/cart/update`,
 
     // order
-    CONFIRM_ORDER: `/order/update`,
+    CONFIRM_ORDER: `/order`,
 
     // user
     UPDATE_USER: `/user/update`,

@@ -1,4 +1,4 @@
-const { Order, Cart } = require("#models");
+const { Order, Cart, Product } = require("#models");
 const { paginate, calLengthPage } = require("#services/mongoose.services");
 const { catchAsync } = require("#utils");
 
@@ -7,16 +7,12 @@ const getAllOrders = catchAsync(async (req, res) => {
     const { page } = req.query;
 
     const orders = await Order.aggregate().facet({
-      ...calLengthPage("totalLength"),
-      orders: [{ $sort: { _id: -1 } }, ...paginate(page)]
+      ...calLengthPage("totalLength"), orders: [{ $sort: { _id: -1 } }, ...paginate(page)]
     });
 
     if (orders[0].orders.length === 0) {
       return res.send({
-        status: "success",
-        orders: [],
-        totalPage: 0,
-        totalLength: 0
+        status: "success", orders: [], totalPage: 0, totalLength: 0
       });
     }
 
@@ -41,14 +37,12 @@ const getOrder = catchAsync(async (req, res) => {
     }
 
     return res.send({
-      status: "success",
-      order
+      status: "success", order
     });
   } catch (error) {
     console.log(error);
     return res.send({
-      status: "error",
-      message: error.message
+      status: "error", message: error.message
     });
   }
 });
@@ -67,23 +61,17 @@ const createOrder = catchAsync(async (req, res) => {
 
     const cartProducts = cart.products;
     const products = cartProducts.map(product => ({
-      product: product.product._id,
-      quantity: product.quantity
+      product: product.product._id, quantity: product.quantity
     }));
 
     const newOrder = {
-      user: user.id,
-      products,
-      shippingAddress,
-      phone,
-      totalCost
+      user: user.id, products, shippingAddress, phone, totalCost
     };
 
     await Order.create(newOrder);
 
     return res.send({
-      status: "success",
-      message: `Order created successfully`
+      status: "success", message: `Order created successfully`
     });
   } catch (error) {
     console.log("error", error);
@@ -95,11 +83,45 @@ const confirmOrder = catchAsync(async (req, res) => {
   try {
     const { id } = req.params;
 
-    await Order.findByIdAndUpdate(id, { status: "confirmed" });
+    // if order is already confirmed, throw an error
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res.send({
+        status: "error", message: "Order does not exist"
+      });
+    }
+
+    if (order.status === "confirmed") {
+      return res.send({
+        status: "error", message: "Order is already confirmed"
+      });
+    }
+
+    // Update the order status to confirmed
+    order.status = "confirmed";
+    await order.save();
+
+    // Update all the products quantity in the order to the current quantity - the quantity in the order
+    const products = order.products;
+
+    products.forEach(async product => {
+      const currentProduct = await Product.findById(product.product._id);
+
+      // Check if the product is still available
+      if (currentProduct.quantity < product.quantity) {
+        return res.send({
+          status: "error", message: `${currentProduct.name} is out of stock`
+        });
+      }
+
+      await Product.findByIdAndUpdate(product.product._id, {
+        quantity: currentProduct.quantity - product.quantity
+      });
+    });
 
     return res.send({
-      status: "success",
-      message: `Order confirmed successfully`
+      status: "success", message: `Order confirmed successfully`
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -107,8 +129,5 @@ const confirmOrder = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  getAllOrders,
-  getOrder,
-  createOrder,
-  confirmOrder
+  getAllOrders, getOrder, createOrder, confirmOrder
 };

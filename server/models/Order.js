@@ -72,21 +72,5 @@ Order.pre(/^find/, function(next) {
   next();
 });
 
-Order.pre("findByIdAndUpdate", async function(next) {
-  const cart = await Cart.findOne({ user: this.user });
-
-  if (!cart) {
-    throw new Error("Cart does not exist");
-  }
-
-  // Update the product quantity
-  cart.products.map(async (product) => {
-    const p = await Product.findById(product.product);
-    p.quantity -= product.quantity;
-    await p.save();
-  });
-
-  next();
-});
 
 module.exports = mongoose.model("Order", Order);
