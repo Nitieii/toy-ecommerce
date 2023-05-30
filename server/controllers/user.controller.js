@@ -124,7 +124,10 @@ const updateUser = catchAsync(async (req, res) => {
       user
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.send({
+      status: "error",
+      message: error.message
+    });
   }
 });
 

@@ -102,7 +102,7 @@ const DataTables = (props: {
 
         <input
           type='text'
-          placeholder='Search the product'
+          placeholder={`Search ${tableName}`}
           value={searchText}
           onChange={(e) => handleSearchData(e)}
           style={{ marginTop: 5, marginBottom: 5, padding: 5, fontSize: 12 }}
@@ -124,6 +124,11 @@ const DataTables = (props: {
             window.location.href = `/admin/products/${row._id}`;
           } else if (tableName === 'orders') {
             window.location.href = `/admin/orders/${row._id}`;
+          } else if (
+            tableName === 'users' &&
+            window.location.href.includes('users')
+          ) {
+            window.location.href = `/admin/users/${row._id}`;
           }
         }}
       />

@@ -1,7 +1,7 @@
 import useAlert from './useAlert';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_API, POST_API } from '../constants/api.js';
+import { GET_API, POST_API, PUT_API, DELETE_API } from '../constants/api.js';
 
 import {
   SET_USER,
@@ -54,16 +54,11 @@ const useUser = () => {
     }
   };
 
-  const handleGetUser = async () => {
+  const handleGetUser = async (id: string) => {
     try {
       dispatch(HANDLE_LOADING_USER(true));
 
-      const { data } = await axios.get(GET_API('', 1).GET_USER);
-
-      if (data.status !== 'success') {
-        dispatch(HANDLE_LOADING_USER(false));
-        return enqueueSnackbar(data.message, { variant: 'error' });
-      }
+      const { data } = await axios.get(GET_API(id, 1).GET_USER_BY_ID);
 
       dispatch(SET_USER(data.user));
       dispatch(HANDLE_LOADING_USER(false));
@@ -231,6 +226,49 @@ const useUser = () => {
     localStorage.setItem('expires_at', expiresAt.toString());
   };
 
+  const handleUpdateUser = async (
+    id: string,
+    user: { fullname: string; email: string; role: boolean }
+  ) => {
+    try {
+      dispatch(HANDLE_LOADING_USER(true));
+
+      const { data } = await axios.put(`${PUT_API().UPDATE_USER}/${id}`, user);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING_USER(false));
+        return alert(data.message);
+      }
+
+      dispatch(HANDLE_LOADING_USER(false));
+      return alert('Update user successfully!');
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING_USER(false));
+
+      return alert(error.message);
+    }
+  };
+
+  const handleDeleteUser = async (id: string) => {
+    try {
+      dispatch(HANDLE_LOADING_USER(true));
+
+      const { data } = await axios.delete(`${DELETE_API().DELETE_USER}/${id}`);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING_USER(false));
+        return alert(data.message);
+      }
+
+      dispatch(HANDLE_LOADING_USER(false));
+      return alert('Delete user successfully!');
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING_USER(false));
+
+      return alert(error.message);
+    }
+  };
+
   return {
     user,
     users,
@@ -245,6 +283,8 @@ const useUser = () => {
     handleRegister,
     handleAuthenticated,
     handleCurrentPage,
+    handleUpdateUser,
+    handleDeleteUser,
     handleLogout,
   };
 };

@@ -50,13 +50,15 @@ const FormSection = (props: any) => {
     }
   };
 
-  const handleSubmitForm = () => {
-    if (!validateForm()) return;
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
 
-    if (title === 'signin') {
-      handleLogin(email, pass);
-    } else {
-      handleRegister(name, email, pass);
+    if (validateForm()) {
+      if (title === 'signin') {
+        handleLogin(email, pass);
+      } else {
+        handleRegister(name, email, pass);
+      }
     }
   };
 
@@ -208,7 +210,7 @@ const FormSection = (props: any) => {
             id='signup'
             className='form-submit'
             value='Register'
-            onClick={handleSubmitForm}
+            onClick={(e) => handleSubmitForm(e)}
           />
         </div>
       </form>

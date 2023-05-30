@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
   _id: string;
-  name: string;
+  fullname: string;
   email: string;
   is_admin: boolean;
   token: {
@@ -37,7 +37,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     SET_USER: (state, action: PayloadAction<User | null>) => {
-      console.log('SET_USER', action.payload);
       state.user = action.payload;
     },
 

@@ -9,7 +9,7 @@ const User = new mongoose.Schema(
       required: [true, "Full name is required"],
       trim: true,
       maxLength: [100, "Full name cannot exceed 100 characters"],
-      match: [/^[A-Za-z ]+$/]
+      match: [/^[a-zA-Z ]+$/, "Please provide a valid full name"]
     },
     email: {
       type: String,

@@ -88,6 +88,10 @@ export default function Router() {
           path: '/admin/users',
           element: <UsersPage />,
         },
+        {
+          path: '/admin/users/:id/',
+          element: <UserDetailPage />,
+        },
       ],
     },
     {
@@ -149,4 +153,7 @@ const UsersPage = Loadable(
 );
 const OrderDetailPage = Loadable(
   React.lazy(() => import('../pages/admin/orderdetail.page.tsx'))
+);
+const UserDetailPage = Loadable(
+  React.lazy(() => import('../pages/admin/userdetail.page.tsx'))
 );

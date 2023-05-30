@@ -14,6 +14,7 @@ const GET_API = (id: string, page = 1) => {
 
     // user
     GET_USER: `/user`,
+    GET_USER_BY_ID: `/user/${id}`,
     GET_USERS: `/users?page=${page}`,
 
     // order
@@ -51,7 +52,7 @@ const PUT_API = () => {
     CONFIRM_ORDER: `/order`,
 
     // user
-    UPDATE_USER: `/user/update`,
+    UPDATE_USER: `/user`,
   };
 };
 
@@ -67,7 +68,7 @@ const DELETE_API = () => {
     DELETE_ORDER: `/order/delete`,
 
     // user
-    DELETE_USER: `/user/delete`,
+    DELETE_USER: `/user`,
   };
 };
 
