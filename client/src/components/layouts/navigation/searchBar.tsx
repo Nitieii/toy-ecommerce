@@ -16,6 +16,8 @@ const SearchBar = () => {
 
     handleSearchMode(false);
 
+    document.body.classList.toggle('search-wrapper-on');
+
     setSearch('');
 
     navigate('/search');
@@ -27,6 +29,7 @@ const SearchBar = () => {
         className='search-close'
         onClick={() => {
           handleSearchMode(false);
+          document.body.classList.toggle('search-wrapper-on');
         }}
       >
         <i className='fa fa-close' aria-hidden='true'></i>
