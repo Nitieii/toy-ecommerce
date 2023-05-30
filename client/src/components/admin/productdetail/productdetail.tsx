@@ -13,8 +13,8 @@ const ProductDetailAdmin = (props: {
   const { handleUpdateProduct, handleDeleteProduct } = useProduct();
 
   const [name, setName] = useState(product.name);
-  const [price, setPrice] = useState(product.price);
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [price, setPrice] = useState<any>(product.price);
+  const [quantity, setQuantity] = useState<any>(product.quantity);
   const [category, setCategory] = useState(product.category);
   const [description, setDescription] = useState(product.description);
   const [keptImages, setKeptImages] = useState<string[]>(product.images);

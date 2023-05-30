@@ -27,6 +27,7 @@ function NavSearch() {
         className='search-nav'
         onClick={() => {
           handleSearchMode(true);
+          document.body.classList.toggle('search-wrapper-on');
         }}
       >
         <img src={imgSearch} alt='' /> Search

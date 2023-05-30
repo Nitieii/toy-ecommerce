@@ -14,9 +14,10 @@ const slice = createSlice({
       const { step, data } = action.payload;
       state[step] = data;
     },
-
-    RESET_FORM_DATA: (state) => {
-      state = {};
+    // disable eslint for this line
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    RESET_FORM_DATA: () => {
+      return initialState;
     },
   },
 });

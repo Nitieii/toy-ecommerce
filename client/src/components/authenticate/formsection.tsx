@@ -50,7 +50,7 @@ const FormSection = (props: any) => {
     }
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = (e: any) => {
     e.preventDefault();
 
     if (validateForm()) {

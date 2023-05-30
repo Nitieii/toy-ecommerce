@@ -18,12 +18,12 @@ function SidebarPrice() {
             <div className='ui-slider-range ui-widget-header ui-corner-all'></div>
             <span
               className='ui-slider-handle ui-state-default ui-corner-all'
-              tabIndex='0'
+              tabIndex={0}
               style={{ left: '0%' }}
             ></span>
             <span
               className='ui-slider-handle ui-state-default ui-corner-all'
-              tabIndex='0'
+              tabIndex={0}
               style={{ left: '100%' }}
             ></span>
             <div

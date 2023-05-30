@@ -33,12 +33,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle('search-wrapper-on');
   }, [searchMode]);
-
-  // Check if token is expires
-  // If token is expired, redirect to login page
-  // If token is not expired, redirect to home page
 
   return (
     <>
