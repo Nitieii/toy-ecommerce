@@ -1,11 +1,14 @@
 import * as URL from '../../../routes/url.ts';
-import { useUser } from '../../../hooks';
+import { useOrder, useUser } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function NavBar() {
   const location = window.location.pathname;
 
   const { isAuthenticated, handleLogout } = useUser();
+
+  const { totalLength, handleGetUserOrders } = useOrder();
 
   const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -14,6 +17,10 @@ function NavBar() {
   const handleNavigation = (url: string) => {
     navigate(url);
   };
+
+  useEffect(() => {
+    handleGetUserOrders();
+  }, []);
 
   return (
     <nav className='amado-nav'>
@@ -54,11 +61,14 @@ function NavBar() {
 
         {isAuthenticated ? (
           <>
+            <li className={location === '/orders' ? 'active' : ''}>
+              <a href='/orders'>Orders ({totalLength})</a>
+            </li>
             <li>
               <a onClick={handleLogout}>Logout</a>
             </li>
             <li>
-              <a href={'/profile'}>My Profile</a>
+              <a href={'/myprofile'}>My Profile</a>
             </li>
           </>
         ) : (

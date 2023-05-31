@@ -6,6 +6,8 @@ import ProductItems from './productitems.tsx';
 const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
   const { order, confirmOrder } = props;
 
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
   const handleConfirmOrder = () => {
     confirmOrder(order?._id);
 
@@ -32,7 +34,7 @@ const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
 
         <ProductItems products={order?.products ? order.products : []} />
 
-        {order?.status === 'pending' ? (
+        {order?.status === 'pending' && user?.is_admin ? (
           <button
             className='btn amado-btn'
             onClick={handleConfirmOrder}

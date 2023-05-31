@@ -10,6 +10,8 @@ router.get(
   orderCtrl.getAllOrders
 );
 
+router.get("/orders/user", authenticateToken, orderCtrl.getUserOrders);
+
 router.get("/order/:id", authenticateToken, orderCtrl.getOrder);
 
 router.post("/order", authenticateToken, orderCtrl.createOrder);

@@ -122,8 +122,13 @@ const DataTables = (props: {
         onRowDoubleClicked={(row) => {
           if (tableName === 'products') {
             window.location.href = `/admin/products/${row._id}`;
-          } else if (tableName === 'orders') {
+          } else if (
+            tableName === 'orders' &&
+            window.location.href.includes('admin')
+          ) {
             window.location.href = `/admin/orders/${row._id}`;
+          } else if (tableName === 'orders') {
+            window.location.href = `/orders/${row._id}`;
           } else if (
             tableName === 'users' &&
             window.location.href.includes('users')

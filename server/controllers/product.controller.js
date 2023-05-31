@@ -166,7 +166,7 @@ const deleteProduct = catchAsync(async (req, res) => {
     const product = await Product.findByIdAndDelete(id);
 
     if (!product) {
-      // If the product does not exist, return a 404 error
+      // If the product does not exist, return a 404.css error
       return res.status(404).send({
         status: "error",
         message: "Product not found"

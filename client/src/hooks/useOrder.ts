@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_API, PUT_API } from '../constants/api.js';
+import { GET_API, PUT_API, POST_API } from '../constants/api.js';
 
 import {
   SET_ORDERS,
@@ -52,6 +52,34 @@ const useOrder = () => {
       return alert(error.message);
     }
   };
+
+  const handleGetUserOrders = async () => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const { data } = await axios.get(GET_API('', 1).GET_USER_ORDERS);
+
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert("Can't get orders");
+      }
+
+      const { orders } = data;
+
+      dispatch(SET_ORDERS(orders));
+      dispatch(SET_TOTAL_PAGE(data.totalPage));
+      dispatch(SET_TOTAL_LENGTH(data.totalLength));
+
+      dispatch(HANDLE_LOADING(false));
+
+      return;
+    } catch (e: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(e.message);
+    }
+  };
+
   const getOrder = async (id: string) => {
     try {
       dispatch(HANDLE_LOADING(true));
@@ -60,7 +88,7 @@ const useOrder = () => {
 
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
-        return alert("Can't get order");
+        return alert("Can't get order: " + data.message);
       }
 
       const { order } = data;
@@ -100,6 +128,31 @@ const useOrder = () => {
     }
   };
 
+  const handleCreateOrder = async (data: {
+    shippingAddress: string;
+    phone: string;
+    totalCost: number;
+  }) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const { data: res } = await axios.post(POST_API().CHECKOUT, data);
+
+      if (res.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert("Can't create order");
+      }
+
+      dispatch(HANDLE_LOADING(false));
+
+      alert('Create order successfully');
+
+      return window.location.replace('/orders');
+    } catch (error: any) {
+      return alert(error.message);
+    }
+  };
+
   const handleLoading = (value: boolean) => {
     dispatch(HANDLE_LOADING(value));
   };
@@ -119,7 +172,9 @@ const useOrder = () => {
     confirmOrder,
     getOrder,
     handleCurrentPage,
+    handleCreateOrder,
     handleLoading,
+    handleGetUserOrders,
   };
 };
 export default useOrder;

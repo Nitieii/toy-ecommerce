@@ -1,7 +1,16 @@
+import { useState } from 'react';
+
 function UserCountrySelect() {
+  const [country, setCountry] = useState('usa');
+
   return (
     <div className='col-6 mb-3'>
-      <select className='nice-select w-100' id='country'>
+      <select
+        className='nice-select w-100'
+        id='country'
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+      >
         <option value='usa'>United States</option>
         <option value='uk'>United Kingdom</option>
         <option value='ger'>Germany</option>

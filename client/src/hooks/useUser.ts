@@ -60,6 +60,11 @@ const useUser = () => {
 
       const { data } = await axios.get(GET_API(id, 1).GET_USER_BY_ID);
 
+      if (data.status !== 'success') {
+        dispatch(HANDLE_LOADING_USER(false));
+        return alert("Can't get user: " + data.message);
+      }
+
       dispatch(SET_USER(data.user));
       dispatch(HANDLE_LOADING_USER(false));
 
@@ -241,6 +246,9 @@ const useUser = () => {
       }
 
       dispatch(HANDLE_LOADING_USER(false));
+
+      localStorage.setItem('user', JSON.stringify(data.user));
+
       return alert('Update user successfully!');
     } catch (error: any) {
       dispatch(HANDLE_LOADING_USER(false));

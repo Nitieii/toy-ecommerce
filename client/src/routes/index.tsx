@@ -49,10 +49,34 @@ export default function Router() {
           ),
         },
         {
+          path: 'orders',
+          element: (
+            <GuestGuard>
+              <OrdersUserPage />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: 'orders/:id',
+          element: (
+            <GuestGuard>
+              <OrderUserDetailPage />
+            </GuestGuard>
+          ),
+        },
+        {
           path: 'checkout',
           element: (
             <GuestGuard>
               <Checkout />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: 'myprofile',
+          element: (
+            <GuestGuard>
+              <MyProfilePage />
             </GuestGuard>
           ),
         },
@@ -110,6 +134,14 @@ export default function Router() {
         </GuestGuard>
       ),
     },
+    {
+      path: '*',
+      element: <Navigate to='/404' replace />,
+    },
+    {
+      path: '/404',
+      element: <NotFoundPage />,
+    },
   ]);
 }
 
@@ -148,6 +180,12 @@ const ProductsPage = Loadable(
 const OrdersPage = Loadable(
   React.lazy(() => import('../pages/admin/orders.pages.tsx'))
 );
+const OrdersUserPage = Loadable(
+  React.lazy(() => import('../pages/user/Order.page.tsx'))
+);
+const OrderUserDetailPage = Loadable(
+  React.lazy(() => import('../pages/user/OrderUserDetail.page.tsx'))
+);
 const UsersPage = Loadable(
   React.lazy(() => import('../pages/admin/users.page.tsx'))
 );
@@ -157,3 +195,7 @@ const OrderDetailPage = Loadable(
 const UserDetailPage = Loadable(
   React.lazy(() => import('../pages/admin/userdetail.page.tsx'))
 );
+const MyProfilePage = Loadable(
+  React.lazy(() => import('../pages/user/MyProfile.page.tsx'))
+);
+const NotFoundPage = Loadable(React.lazy(() => import('../pages/404.tsx')));

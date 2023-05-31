@@ -20,6 +20,7 @@ const GET_API = (id: string, page = 1) => {
     // order
     GET_ORDERS: `/orders?page=${page}`,
     GET_ORDER: `/order/${id}`,
+    GET_USER_ORDERS: `/orders/user`,
   };
 };
 
@@ -36,7 +37,7 @@ const POST_API = () => {
     SIGNUP: `/signup`,
 
     // checkout
-    CHECKOUT: `/checkout`,
+    CHECKOUT: `/order`,
   };
 };
 

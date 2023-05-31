@@ -18,6 +18,7 @@ interface OrderState {
   currentPage: number;
   totalPage: number;
   totalLength: number;
+  totalOrders: number;
   loadingOrder: boolean;
 }
 
@@ -27,6 +28,7 @@ const initialState: OrderState = {
   currentPage: 1,
   totalLength: 0,
   totalPage: 0,
+  totalOrders: 0,
   loadingOrder: false,
 };
 

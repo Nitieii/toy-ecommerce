@@ -10,16 +10,12 @@ const getUsers = catchAsync(async (req, res) => {
     const { page } = req.query;
 
     const users = await User.aggregate().facet({
-      ...calLengthPage("totalLength"),
-      users: [{ $sort: { _id: -1 } }, ...paginate(page)]
+      ...calLengthPage("totalLength"), users: [{ $sort: { _id: -1 } }, ...paginate(page)]
     });
 
     if (users[0].users.length === 0) {
       return res.send({
-        status: "success",
-        users: [],
-        totalPage: 0,
-        totalLength: 0
+        status: "success", users: [], totalPage: 0, totalLength: 0
       });
     }
 
@@ -40,10 +36,9 @@ const getUser = catchAsync(async (req, res) => {
     const { id } = req.params;
 
     // Check if user is admin or user is updating his/her own account
-    if (req.user.is_admin === false && req.user._id !== id) {
+    if (req.user.is_admin === false && req.user._id.toString() !== id) {
       return res.send({
-        status: "error",
-        message: "You are not authorized to update this user"
+        status: "error", message: "You are not authorized to find this user"
       });
     }
 
@@ -52,12 +47,18 @@ const getUser = catchAsync(async (req, res) => {
     let user = await User.findById(mongooseId);
 
     if (!user) {
-      return res.status(404).json({ message: "User does not exist" });
+      return res.send({
+        status: "error", message: "User not found"
+      });
     }
 
-    return res.status(200).json({ user });
+    return res.send({
+      status: "success", user
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.send({
+      status: "error", message: error.message
+    });
   }
 });
 
@@ -70,9 +71,7 @@ const createUser = catchAsync(async (req, res) => {
     const user = await User.create({ fullname, email, password });
 
     return res.send({
-      status: "success",
-      message: `User created successfully`,
-      user
+      status: "success", message: `User created successfully`, user
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -84,10 +83,9 @@ const updateUser = catchAsync(async (req, res) => {
     const { id } = req.params;
 
     // Check if user is admin or user is updating his/her own account
-    if (req.user.is_admin === false && req.user._id !== id) {
+    if (req.user.is_admin === false && req.user._id.toString() !== id) {
       return res.send({
-        status: "error",
-        message: "You are not authorized to update this user"
+        status: "error", message: "You are not authorized to update this user"
       });
     }
 
@@ -96,8 +94,7 @@ const updateUser = catchAsync(async (req, res) => {
 
     if (!user) {
       return res.send({
-        status: "error",
-        message: "User not found"
+        status: "error", message: "User not found"
       });
     }
 
@@ -119,14 +116,11 @@ const updateUser = catchAsync(async (req, res) => {
     await user.save();
 
     return res.send({
-      status: "success",
-      message: `User updated successfully`,
-      user
+      status: "success", message: `User updated successfully`, user
     });
   } catch (error) {
     return res.send({
-      status: "error",
-      message: error.message
+      status: "error", message: error.message
     });
   }
 });
@@ -140,14 +134,12 @@ const deleteUser = catchAsync(async (req, res) => {
 
     if (!user) {
       return res.send({
-        status: "error",
-        message: "User not found"
+        status: "error", message: "User not found"
       });
     }
 
     return res.send({
-      status: "success",
-      message: `User deleted successfully`
+      status: "success", message: `User deleted successfully`
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -155,9 +147,5 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-  getUsers
+  getUser, createUser, updateUser, deleteUser, getUsers
 };

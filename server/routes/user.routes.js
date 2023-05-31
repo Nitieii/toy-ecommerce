@@ -9,12 +9,11 @@ router.get(
   authenticateAdmin,
   userCtrl.getUsers
 );
-router.get("/user/:id", authenticateToken, authenticateAdmin, userCtrl.getUser);
+router.get("/user/:id", authenticateToken, userCtrl.getUser);
 router.post("/user", authenticateToken, authenticateAdmin, userCtrl.createUser);
 router.put(
   "/user/:id",
   authenticateToken,
-  authenticateAdmin,
   userCtrl.updateUser
 );
 router.delete(

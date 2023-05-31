@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const ENDPOINT = 'https://toy-ecommerce-be.onrender.com/api/v1';
-// const ENDPOINT = 'http://localhost:8080/api/v1';
+// const ENDPOINT = 'https://toy-ecommerce-be.onrender.com/api/v1';
+const ENDPOINT = 'http://localhost:8080/api/v1';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: ENDPOINT,

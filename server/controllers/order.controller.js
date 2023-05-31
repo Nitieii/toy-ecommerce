@@ -27,13 +27,35 @@ const getAllOrders = catchAsync(async (req, res) => {
   }
 });
 
+const getUserOrders = catchAsync(async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user.id }).sort({ _id: -1 });
+
+    if (orders.length === 0) {
+      return res.send({
+        status: "success", orders: [], totalPage: 0, totalLength: 0
+      });
+    }
+
+    return res.send({
+      status: "success", orders, totalLength: orders.length, totalPage: 1
+    });
+  } catch (error) {
+    return res.send({
+      status: "error", message: error.message
+    });
+  }
+});
+
 const getOrder = catchAsync(async (req, res) => {
   try {
     const { id } = req.params;
     const order = await Order.findById(id);
 
     if (!order) {
-      throw new Error("Order does not exist");
+      return res.send({
+        status: "error", message: "Order does not exist"
+      });
     }
 
     return res.send({
@@ -54,7 +76,9 @@ const createOrder = catchAsync(async (req, res) => {
     const cart = await Cart.findOne({ user: user.id });
 
     if (!cart) {
-      throw new Error("Cart does not exist");
+      return res.send({
+        status: "error", message: "Cart does not exist"
+      });
     }
 
     const { shippingAddress, phone, totalCost } = req.body;
@@ -70,12 +94,16 @@ const createOrder = catchAsync(async (req, res) => {
 
     await Order.create(newOrder);
 
+    // Empty user cart
+    await Cart.findOneAndUpdate({ user: user.id }, { products: [] });
+
     return res.send({
       status: "success", message: `Order created successfully`
     });
   } catch (error) {
-    console.log("error", error);
-    return res.status(500).json({ message: error.message });
+    return res.send({
+      status: "error", message: error.message
+    });
   }
 });
 
@@ -129,5 +157,5 @@ const confirmOrder = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  getAllOrders, getOrder, createOrder, confirmOrder
+  getAllOrders, getOrder, createOrder, confirmOrder, getUserOrders
 };
