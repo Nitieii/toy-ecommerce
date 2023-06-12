@@ -19,7 +19,11 @@ function NavBar() {
   };
 
   useEffect(() => {
-    handleGetUserOrders();
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      handleGetUserOrders();
+    }
   }, []);
 
   return (
