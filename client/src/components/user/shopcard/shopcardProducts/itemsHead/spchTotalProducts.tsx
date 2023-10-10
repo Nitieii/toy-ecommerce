@@ -3,6 +3,8 @@ import { useProduct } from '../../../../../hooks';
 function SpchTotalProducts() {
   const { currentPage, totalLength, loading } = useProduct();
 
+  console.log('Total Length: ', totalLength);
+
   const startItem = (Number(currentPage) - 1) * Number(totalLength);
   const endItem = startItem + Number(totalLength);
 

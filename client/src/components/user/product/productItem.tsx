@@ -5,8 +5,8 @@ function ProductItem(props: Product) {
   const item = props;
 
   return (
-    <div key={item._id} className='single-products-catagory clearfix'>
-      <a href={`${URL.DETAILS}/${item._id}`}>
+    <div key={item.id} className='single-products-catagory clearfix'>
+      <a href={`${URL.DETAILS}/${item.id}`}>
         <img
           src={`${item.images[0]}`}
           alt=''

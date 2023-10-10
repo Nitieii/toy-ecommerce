@@ -9,7 +9,7 @@ function Products(props: { products: Product[] }) {
     >
       {props.products
         ? props.products.map((item: Product) => (
-            <ProductItem key={item._id} {...item} />
+            <ProductItem key={item.id} {...item} />
           ))
         : null}
     </div>

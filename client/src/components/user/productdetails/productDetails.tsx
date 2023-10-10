@@ -34,7 +34,7 @@ function ProductDetails() {
       return;
     }
 
-    handleAddToCart(product?._id, quantity);
+    handleAddToCart(product?.id, quantity);
   }
 
   function renderBigImage() {

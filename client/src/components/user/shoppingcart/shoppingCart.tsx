@@ -2,7 +2,7 @@ import CartSummary from './cartSummary.tsx';
 
 import { useCart } from '../../../hooks';
 
-function Shoppingcart() {
+function ShoppingCart() {
   const { products, updateCart, removeCartItem } = useCart();
 
   const handleQuantityChange = (e: any, productId: string, method: string) => {
@@ -28,9 +28,9 @@ function Shoppingcart() {
   function renderCardItem() {
     return products?.map((item: any) => {
       return (
-        <tr key={item.product._id}>
+        <tr key={item.product.productId}>
           <td className='cart_product_img'>
-            <a href={`product/${item.product._id}`}>
+            <a href={`product/${item.product.id}`}>
               <img src={`${item.product.images[0]}`} alt='Product' />
             </a>
           </td>
@@ -48,7 +48,7 @@ function Shoppingcart() {
                 <span
                   className='qty-minus'
                   onClick={(e) =>
-                    handleQuantityChange(e, item.product._id, 'minus')
+                    handleQuantityChange(e, item.product.id, 'minus')
                   }
                 >
                   <i className='fa fa-minus' aria-hidden='true'></i>
@@ -67,7 +67,7 @@ function Shoppingcart() {
                 <span
                   className='qty-plus'
                   onClick={(e) =>
-                    handleQuantityChange(e, item.product._id, 'plus')
+                    handleQuantityChange(e, item.product.id, 'plus')
                   }
                 >
                   <i className='fa fa-plus' aria-hidden='true'></i>
@@ -117,4 +117,4 @@ function Shoppingcart() {
   );
 }
 
-export default Shoppingcart;
+export default ShoppingCart;

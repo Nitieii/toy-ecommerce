@@ -1,4 +1,4 @@
-import Shoppingcart from '../../components/user/shoppingcart/shoppingcart.tsx';
+import ShoppingCart from '../../components/user/shoppingcart/shoppingCart.tsx';
 import { useCart } from '../../hooks';
 import { useEffect } from 'react';
 import Spinner from '../../components/layouts/spinner/spinner.tsx';
@@ -12,7 +12,7 @@ const ShoppingCartPage = () => {
 
   if (loadingCart) return <Spinner />;
 
-  return <Shoppingcart />;
+  return <ShoppingCart />;
 };
 
 export default ShoppingCartPage;

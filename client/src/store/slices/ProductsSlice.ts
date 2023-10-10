@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Product {
-  _id: string;
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -28,7 +28,7 @@ const initalState: ProductState = {
   totalPages: 0,
   totalLength: 0,
   product: {
-    _id: '',
+    id: '',
     name: '',
     price: 0,
     description: '',

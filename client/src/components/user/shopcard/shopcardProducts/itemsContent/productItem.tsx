@@ -18,10 +18,10 @@ function ProductItem() {
 
   return products.map((item: Product) => {
     return (
-      <div key={item._id} className='col-12 col-sm-6 col-md-12 col-xl-6'>
+      <div key={item.id} className='col-12 col-sm-6 col-md-12 col-xl-6'>
         <div className='single-product-wrapper'>
           <div className='product-img'>
-            <a href={`product/${item._id}`}>
+            <a href={`product/${item.id}`}>
               <img
                 src={item.images[0]}
                 alt=''
@@ -37,7 +37,7 @@ function ProductItem() {
             <div className='product-meta-data'>
               <div className='line'></div>
               <p className='product-price'>${item.price}</p>
-              <a href={`product/${item._id}`}>
+              <a href={`product/${item.id}`}>
                 <h6>{item.name}</h6>
               </a>
             </div>
@@ -55,7 +55,7 @@ function ProductItem() {
                   onClick={handlerAddToCart}
                   src={imgCart}
                   alt=''
-                  id={item._id}
+                  id={item.id}
                 />
                 {/*<p>{itemStatus}</p>*/}
               </div>

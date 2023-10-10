@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const MyProfilePage = () => {
   const userLocal = localStorage.getItem('user');
-  const userId = JSON.parse(userLocal || '{}')._id;
+  const userId = JSON.parse(userLocal || '{}').id;
 
   const { handleGetUser, loadingUser, user, handleUpdateUser } = useUser();
 

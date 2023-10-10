@@ -42,7 +42,7 @@ const useProduct = () => {
 
       dispatch(SET_CURRENT_PAGE(page));
       dispatch(SET_TOTAL_PAGES(data.totalPages));
-      dispatch(SET_TOTAL_LENGTH(data.totalProducts));
+      dispatch(SET_TOTAL_LENGTH(data.totalLength));
 
       dispatch(SET_PRODUCTS(data.products));
       dispatch(HANDLE_LOADING(false));
@@ -114,6 +114,8 @@ const useProduct = () => {
       }
 
       dispatch(SET_PRODUCTS(data.products));
+      dispatch(SET_TOTAL_LENGTH(data.totalLength));
+      dispatch(SET_TOTAL_PAGES(data.totalPage));
 
       dispatch(HANDLE_LOADING(false));
 

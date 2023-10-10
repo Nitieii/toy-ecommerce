@@ -42,14 +42,13 @@ const useCart = () => {
     try {
       dispatch(HANDLE_LOADING(true));
 
-      const { data } = await axios.post(POST_API().ADD_TO_CART, {
+      const { data } = await axios.put(POST_API().ADD_TO_CART, {
         productId,
         quantity,
       });
 
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
-        console.log(data.message);
         return alert("Can't add to cart");
       }
 
