@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Login from '../components/authenticate/login';
-import Signup from '../components/authenticate/signup';
 
 interface GuestGuardProps {
   children: React.ReactNode;
@@ -13,12 +11,18 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
 
-    if (!token && children === <Signup />) return navigate('/signup');
-
-    // if (!token && children !== <Signup />) return navigate('/login');
-
-    if (token && (children === <Login /> || children === <Signup />))
-      return navigate('/');
+    // If user is logged in, redirect to home page
+    if (token) {
+      navigate('/', { replace: true });
+    } else {
+      if (window.location.pathname === '/login') {
+        navigate('/login', { replace: true });
+      } else if (window.location.pathname === '/signup') {
+        navigate('/signup', { replace: true });
+      } else {
+        navigate('/login', { replace: true });
+      }
+    }
   }, []);
 
   return <>{children}</>;

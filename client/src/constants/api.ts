@@ -33,8 +33,8 @@ const POST_API = () => {
     ADD_TO_CART: `/cart/add`,
 
     // authenticate
-    LOGIN: `/login`,
-    SIGNUP: `/signup`,
+    LOGIN: `/auth/login`,
+    SIGNUP: `/auth/signup`,
 
     // checkout
     CHECKOUT: `/order`,

@@ -10,7 +10,7 @@ const UserDetail = (props: {
 
   const [name, setName] = useState(user?.fullname || '');
   const [email, setEmail] = useState(user?.email || '');
-  const [role, setRole] = useState(user?.is_admin ? 'Admin' : 'User');
+  const [role, setRole] = useState(user?.isAdmin ? 'Admin' : 'User');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -18,10 +18,10 @@ const UserDetail = (props: {
     const updateInfo = {
       fullname: name,
       email: email,
-      is_admin: role === 'Admin' ? true : false,
+      isAdmin: role === 'Admin',
     };
 
-    handleUpdateUserInfo(user?._id, updateInfo);
+    handleUpdateUserInfo(user?.id, updateInfo);
   };
 
   const handleDelete = () => {
@@ -29,7 +29,7 @@ const UserDetail = (props: {
       'Are you sure you want to delete this user?'
     );
 
-    if (confirm) handleDeleteUser(user?._id);
+    if (confirm) handleDeleteUser(user?.id);
   };
 
   return (
@@ -52,7 +52,7 @@ const UserDetail = (props: {
                     className='form-control'
                     id='product_id'
                     name='id'
-                    value={user?._id}
+                    value={user?.id}
                     readOnly
                   />
                 </div>
@@ -92,7 +92,7 @@ const UserDetail = (props: {
                         name='category'
                         id='category'
                         onChange={(e) => setRole(e.target.value)}
-                        value={user?.is_admin ? 'Admin' : 'User'}
+                        value={user?.isAdmin ? 'Admin' : 'User'}
                       >
                         <option value={'Admin'}>Admin</option>
 

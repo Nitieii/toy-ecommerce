@@ -86,7 +86,10 @@ const useUser = () => {
 
       const { data } = await axios.post(POST_API().LOGIN, { email, password });
 
+      console.log('data: ', data);
+
       if (data.status !== 'success') {
+        console.log('data.message: ', data);
         dispatch(HANDLE_LOADING_USER(false));
         return alert(data.message);
       }
@@ -99,9 +102,6 @@ const useUser = () => {
 
       // Set token to local storage
       localStorage.setItem('access_token', data.token.access_token);
-
-      // Set refresh token to local storage
-      localStorage.setItem('refresh_token', data.token.refresh_token);
 
       // Set expires at to local storage
       convertExpiresInToExpiresAt(data.token.expires_in);
@@ -121,6 +121,7 @@ const useUser = () => {
 
       return window.location.replace('/');
     } catch (error: any) {
+      console.log('error: ', error);
       dispatch(HANDLE_LOADING_USER(false));
 
       return alert(error.message);
@@ -154,9 +155,6 @@ const useUser = () => {
 
       // Set token to local storage
       localStorage.setItem('access_token', data.token.access_token);
-
-      // Set refresh token to local storage
-      localStorage.setItem('refresh_token', data.token.refresh_token);
 
       // Set expires at to local storage
       convertExpiresInToExpiresAt(data.token.expires_in);

@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
-  _id: string;
+  id: string;
   fullname: string;
   email: string;
-  is_admin: boolean;
-  token: {
-    accessToken: string;
-    refreshToken: string;
-    expiresIn: string;
-  };
+  isAdmin: boolean;
 }
 
 interface UserState {
