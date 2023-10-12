@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
   id: string;
-  fullname: string;
+  fullName: string;
   email: string;
   isAdmin: boolean;
 }

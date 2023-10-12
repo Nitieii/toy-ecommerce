@@ -132,7 +132,7 @@ const useProduct = () => {
       dispatch(HANDLE_LOADING(true));
 
       const res = await axios.put(`${PUT_API().UPDATE_PRODUCT}/${id}`, data);
-
+      console.log(res.data)
       if (res.data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
         return alert(res.data.message);

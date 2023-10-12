@@ -4,13 +4,13 @@ import NavSocial from './navSocial.tsx';
 import NavLogo from './navLogo.tsx';
 
 function Navigation() {
-  const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
+  const { isAdmin } = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
     <header className='header-area clearfix'>
       <NavLogo />
       <NavBar />
-      {!is_admin ? (
+      {!isAdmin ? (
         <>
           <NavSearch /> <NavSocial />
         </>

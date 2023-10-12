@@ -10,10 +10,11 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
+    const currenPath = window.location.pathname;
 
     // If user is logged in, redirect to home page
     if (token) {
-      navigate('/', { replace: true });
+      navigate(currenPath, { replace: true });
     } else {
       if (window.location.pathname === '/login') {
         navigate('/login', { replace: true });

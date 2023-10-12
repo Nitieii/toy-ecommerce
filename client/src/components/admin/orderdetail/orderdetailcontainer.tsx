@@ -34,7 +34,7 @@ const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
 
         <ProductItems products={order?.products ? order.products : []} />
 
-        {order?.status === 'pending' && user?.is_admin ? (
+        {order?.status === 'pending' && user?.isAdmin ? (
           <button
             className='btn amado-btn'
             onClick={handleConfirmOrder}

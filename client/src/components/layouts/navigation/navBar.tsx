@@ -10,7 +10,7 @@ function NavBar() {
 
   const { totalLength, handleGetUserOrders } = useOrder();
 
-  const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
+  const { isAdmin } = JSON.parse(localStorage.getItem('user') || '{}');
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function NavBar() {
   return (
     <nav className='amado-nav'>
       <ul>
-        {is_admin ? (
+        {isAdmin ? (
           <>
             <li className={location === '/admin/products' ? 'active' : ''}>
               <a onClick={() => handleNavigation('/admin/products')}>

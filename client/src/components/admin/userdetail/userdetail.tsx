@@ -8,7 +8,7 @@ const UserDetail = (props: {
 }) => {
   const { user, handleUpdateUserInfo, handleDeleteUser } = props;
 
-  const [name, setName] = useState(user?.fullname || '');
+  const [name, setName] = useState(user?.fullName || '');
   const [email, setEmail] = useState(user?.email || '');
   const [role, setRole] = useState(user?.isAdmin ? 'Admin' : 'User');
 
@@ -16,14 +16,15 @@ const UserDetail = (props: {
     e.preventDefault();
 
     const updateInfo = {
-      fullname: name,
+      fullName: name,
       email: email,
       isAdmin: role === 'Admin',
     };
-
+    console.log(updateInfo)
     handleUpdateUserInfo(user?.id, updateInfo);
   };
 
+ 
   const handleDelete = () => {
     const confirm = window.confirm(
       'Are you sure you want to delete this user?'
@@ -61,8 +62,8 @@ const UserDetail = (props: {
                   <input
                     type='text'
                     className='form-control'
-                    name='fullname'
-                    id='fullname'
+                    name='fullName'
+                    id='fullName'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required

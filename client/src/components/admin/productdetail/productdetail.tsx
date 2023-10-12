@@ -34,7 +34,7 @@ const ProductDetailAdmin = (props: {
 
     keptImages.map((image) => form.append('keptImages[]', image));
 
-    handleUpdateProduct(product._id, form);
+    handleUpdateProduct(product.id, form);
   };
 
   const handleOnChangeImages = (e: any) => {
@@ -73,7 +73,7 @@ const ProductDetailAdmin = (props: {
     );
 
     if (confirm) {
-      handleDeleteProduct(product._id);
+      handleDeleteProduct(product.id);
     } else {
       return;
     }
@@ -99,7 +99,7 @@ const ProductDetailAdmin = (props: {
                     className='form-control'
                     id='product_id'
                     name='id'
-                    value={product._id}
+                    value={product.id}
                     readOnly
                   />
                 </div>

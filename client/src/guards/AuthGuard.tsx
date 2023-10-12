@@ -10,9 +10,9 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    const { is_admin } = JSON.parse(localStorage.getItem('user') || '{}');
+    const { isAdmin } = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if (!token || !is_admin) return navigate('/login');
+    if (!token || !isAdmin) return navigate('/login');
   }, []);
 
   return <>{children}</>;

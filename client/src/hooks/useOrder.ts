@@ -31,12 +31,10 @@ const useOrder = () => {
             return alert("Can't get orders");
           }
 
-          const { orders } = res.data;
-
-          dispatch(SET_ORDERS(orders));
+          const orders = res.data.order;
+          dispatch(SET_ORDERS(orders.result));
           dispatch(SET_TOTAL_PAGE(res.data.totalPage));
           dispatch(SET_TOTAL_LENGTH(res.data.totalLength));
-
           dispatch(HANDLE_LOADING(false));
 
           return;
@@ -85,14 +83,13 @@ const useOrder = () => {
       dispatch(HANDLE_LOADING(true));
 
       const { data } = await axios.get(GET_API(id).GET_ORDER);
-
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
         return alert("Can't get order: " + data.message);
       }
 
-      const { order } = data;
-
+      const order = data.order;
+      console.log(order);
       dispatch(SET_ORDER(order));
       dispatch(HANDLE_LOADING(false));
 
@@ -135,7 +132,7 @@ const useOrder = () => {
   }) => {
     try {
       dispatch(HANDLE_LOADING(true));
-
+      console.log(data);
       const { data: res } = await axios.post(POST_API().CHECKOUT, data);
 
       if (res.status !== 'success') {

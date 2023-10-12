@@ -35,13 +35,13 @@ const useUser = () => {
       dispatch(HANDLE_LOADING_USER(true));
 
       const { data } = await axios.get(GET_API('', page).GET_USERS);
-
+      console.log(data.user.result)
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING_USER(false));
         return alert("Can't get users");
       }
 
-      dispatch(SET_USERS(data.users));
+      dispatch(SET_USERS(data.user.result));
       dispatch(SET_TOTAL_LENGTH(data.totalLength));
       dispatch(SET_TOTAL_PAGES(data.totalPages));
       dispatch(HANDLE_LOADING_USER(false));
@@ -115,7 +115,7 @@ const useUser = () => {
         return window.location.replace(redirectPath);
       }
 
-      if (!redirectPath && data.user.is_admin) {
+      if (!redirectPath && data.user.isAdmin) {
         return window.location.replace('/admin/products');
       }
 

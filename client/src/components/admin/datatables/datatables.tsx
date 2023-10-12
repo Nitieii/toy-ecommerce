@@ -23,7 +23,7 @@ const DataTables = (props: {
 
   if (tableName === 'products') {
     columns = [
-      { name: 'id', selector: (row) => row._id },
+      { name: 'id', selector: (row) => row.id },
       { name: 'name', selector: (row) => row.name },
       { name: 'price', selector: (row) => row.price },
       { name: 'quantity', selector: (row) => row.quantity },
@@ -33,7 +33,7 @@ const DataTables = (props: {
     columns = [
       {
         name: 'id',
-        selector: (row) => row._id,
+        selector: (row) => row.id,
       },
       {
         name: 'total ($)',
@@ -60,7 +60,7 @@ const DataTables = (props: {
     columns = [
       {
         name: 'id',
-        selector: (row) => row._id,
+        selector: (row) => row.id,
       },
       {
         name: 'name',
@@ -72,7 +72,7 @@ const DataTables = (props: {
       },
       {
         name: 'role',
-        selector: (row) => (row.is_admin ? 'admin' : 'user'),
+        selector: (row) => (row.isAdmin ? 'admin' : 'user'),
       },
     ];
   }
@@ -121,19 +121,19 @@ const DataTables = (props: {
         onChangePage={onPageChange}
         onRowDoubleClicked={(row) => {
           if (tableName === 'products') {
-            window.location.href = `/admin/products/${row._id}`;
+            window.location.href = `/admin/products/${row.id}`;
           } else if (
             tableName === 'orders' &&
             window.location.href.includes('admin')
           ) {
-            window.location.href = `/admin/orders/${row._id}`;
+            window.location.href = `/admin/orders/${row.id}`;
           } else if (tableName === 'orders') {
-            window.location.href = `/orders/${row._id}`;
+            window.location.href = `/orders/${row.id}`;
           } else if (
             tableName === 'users' &&
             window.location.href.includes('users')
           ) {
-            window.location.href = `/admin/users/${row._id}`;
+            window.location.href = `/admin/users/${row.id}`;
           }
         }}
       />
