@@ -31,13 +31,14 @@ const useTransaction = () => {
       axios
         .get(GET_API('', page).GET_TRANSACTIONS)
         .then((res) => {
+          console.log(res.data);
           if (res.data.status !== 'success') {
             dispatch(HANDLE_LOADING(false));
             return alert("Can't get transactions");
           }
 
-          const transactions = res.data.transaction;
-          dispatch(SET_TRANSACTIONS(transactions.result));
+          const transactions = res.data.transactions;
+          dispatch(SET_TRANSACTIONS(transactions));
           dispatch(SET_TOTAL_PAGE(res.data.totalPage));
           dispatch(SET_TOTAL_LENGTH(res.data.totalLength));
           dispatch(HANDLE_LOADING(false));
@@ -84,17 +85,45 @@ const useTransaction = () => {
 
       return alert(error.message);
     }
+  };
+
+  const handleCreateTransaction = async (data: {
+    orderId: string;
+    type: string;
+    amount: number;
+    paymentMethod: string;
+    status: string;
+  }) => {
+    try {
+      dispatch(HANDLE_LOADING(true));
+
+      const { data: res } = await axios.post(
+        POST_API().CREATE_TRANSACTION,
+        data
+      );
+
+      if (res.status !== 'success') {
+        dispatch(HANDLE_LOADING(false));
+        return alert("Can't create transaction");
+      }
+
+      dispatch(HANDLE_LOADING(false));
+
+      return alert('Create transaction successfully');
+    } catch (error: any) {
+      dispatch(HANDLE_LOADING(false));
+
+      return alert(error.message);
+    }
   }
 
-  // const handleCreateTransa
+  const handleLoading = (value: boolean) => {
+    dispatch(HANDLE_LOADING(value));
+  };
 
-    const handleLoading = (value: boolean) => {
-      dispatch(HANDLE_LOADING(value));
-    };
-
-    const handleCurrentPage = (value: number) => {
-      dispatch(SET_CURRENT_PAGE(value));
-    };
+  const handleCurrentPage = (value: number) => {
+    dispatch(SET_CURRENT_PAGE(value));
+  };
 
   return {
     handleGetTransactions,
@@ -107,6 +136,7 @@ const useTransaction = () => {
     handleLoading,
     handleGetTransactionById,
     transaction,
+    handleCreateTransaction
   };
 };
 

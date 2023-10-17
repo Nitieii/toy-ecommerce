@@ -15,6 +15,7 @@ const TransactionDetailPage = () => {
         handleGetTransactionById(transactionId);
     }, []);
 
+
     if (loadingTransaction) return <Spinner />;
 
     return (

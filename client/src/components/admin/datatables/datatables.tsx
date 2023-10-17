@@ -100,7 +100,7 @@ const DataTables = (props: {
       {
         name: 'created at',
         selector: (row) =>
-          new Date(row.createdAt).toLocaleString('en-GB', {
+          new Date(row.timestamp).toLocaleString('en-GB', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',

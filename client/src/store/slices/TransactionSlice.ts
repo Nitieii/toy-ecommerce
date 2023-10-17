@@ -6,7 +6,7 @@ interface Transaction {
   amount: number;
   paymentMethod: string;
   status: string;
-  createdAt: string;
+  timestamp: string;
   orderId:string;
 }
 

@@ -12,6 +12,7 @@ import {
 } from '../store/slices/OrderSlice.ts';
 
 import axios from '../utils/axios.js';
+import useTransaction from './useTransaction.ts';
 
 const useOrder = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,12 @@ const useOrder = () => {
   const { currentPage, orders, loadingOrder, totalPage, totalLength, order } =
     useSelector((state: any) => state.order);
 
+    const { handleCreateTransaction } = useTransaction();
+
   const handleGetOrders = async (page: number) => {
     try {
       dispatch(HANDLE_LOADING(true));
-
+      
       axios
         .get(GET_API('', page).GET_ORDERS)
         .then((res) => {
@@ -82,7 +85,7 @@ const useOrder = () => {
   const getOrder = async (id: string) => {
     try {
       dispatch(HANDLE_LOADING(true));
-
+      
       const { data } = await axios.get(GET_API(id).GET_ORDER);
       if (data.status !== 'success') {
         dispatch(HANDLE_LOADING(false));
@@ -140,6 +143,16 @@ const useOrder = () => {
         dispatch(HANDLE_LOADING(false));
         return alert("Can't create order");
       }
+
+      const transaction = {
+        orderId: res.order.id,
+        type: 'debit',
+        amount: res.order.totalCost,
+        paymentMethod: 'Paypal',
+        status: res.order.status,
+      };
+      
+      await handleCreateTransaction(transaction);
 
       dispatch(HANDLE_LOADING(false));
 

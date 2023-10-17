@@ -1,7 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 // const ENDPOINT = 'https://toy-ecommerce-be.onrender.com/api/v1';
-const ENDPOINT = 'https://localhost:7238/api/v1';
+
+// const ENDPOINT = 'https://localhost:7238/api/v1';
+
+const ENDPOINT = 'https://toyecommerceaspnetapi.azurewebsites.net/api/v1';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: ENDPOINT,

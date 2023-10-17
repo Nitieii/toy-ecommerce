@@ -24,14 +24,13 @@ const TransactionDetail = (props:{transaction: Transaction} ) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>{transaction.id}</td>
-                        <td>{transaction.orderId}</td>
-                        <td>{transaction.type}</td>
-                        <td>{transaction.amount}</td>
-                        <td>{transaction.paymentMethod}</td>
-                        <td>{transaction.status}</td>
-                        <td>{transaction.createdAt}</td>
+                        <th>{transaction?.id}</th>
+                        <td>{transaction?.orderId}</td>
+                        <td>{transaction?.type}</td>
+                        <td>{transaction?.amount}</td>
+                        <td>{transaction?.paymentMethod}</td>
+                        <td>{transaction?.status}</td>
+                        <td>{transaction?.timestamp}</td>
                     </tr>
                
                 </tbody>

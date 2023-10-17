@@ -15,6 +15,14 @@ function CheckoutTotal() {
       totalCost: totalPrice,
     };
 
+    const transaction = {
+      paymentMethod: 'Paypal',
+      status: 'pending',
+      amount: totalPrice,
+      type: 'debit',
+      orderId:' '
+    }
+
     handleCreateOrder(order);
   };
 
