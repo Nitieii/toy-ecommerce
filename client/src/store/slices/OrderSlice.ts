@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from './ProductsSlice.ts';
 
 interface Order {
-  _id: string;
-  user: string;
+  id: string;
+  userId: string;
   products: [{ product: Product; quantity: number }];
   status: string;
   totalCost: number;

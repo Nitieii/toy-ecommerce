@@ -21,6 +21,10 @@ const GET_API = (id: string, page = 1) => {
     GET_ORDERS: `/orders?page=${page}`,
     GET_ORDER: `/order/${id}`,
     GET_USER_ORDERS: `/orders/user`,
+
+    //transaction
+    GET_TRANSACTIONS: `/transactions?page=${page}`,
+    GET_TRANSACTION_BY_ID: `/transactions/${id}`,
   };
 };
 
@@ -38,6 +42,9 @@ const POST_API = () => {
 
     // checkout
     CHECKOUT: `/order`,
+
+    //transaction
+    CREATE_TRANSACTION: `/transactions`,
   };
 };
 
@@ -70,6 +77,9 @@ const DELETE_API = () => {
 
     // user
     DELETE_USER: `/user`,
+
+    // transaction
+    DELETE_TRANSACTION: `/transactions`,
   };
 };
 

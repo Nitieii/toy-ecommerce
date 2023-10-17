@@ -9,7 +9,7 @@ const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const handleConfirmOrder = () => {
-    confirmOrder(order?._id);
+    confirmOrder(order?.id);
 
     window.location.reload();
   };
@@ -21,9 +21,9 @@ const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
       </div>
       <div className='card-body'>
         <h6>
-          Order ID: <span id='orderId'>{order?._id}</span>
+          Order ID: <span id='orderId'>{order?.id}</span>
           <br />
-          User ID: <span id='userId'>{order?.user}</span>
+          User ID: <span id='userId'>{order?.userId}</span>
         </h6>
 
         <OrderInfo order={order} />

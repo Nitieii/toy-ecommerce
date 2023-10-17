@@ -42,6 +42,9 @@ function NavBar() {
             <li className={location === '/admin/users' ? 'active' : ''}>
               <a onClick={() => handleNavigation('/admin/users')}>Users</a>
             </li>
+            <li className={location === '/admin/transactions' ? 'active' : ''}>
+              <a onClick={() => handleNavigation('/admin/transactions')}>Transactions</a>
+            </li>
           </>
         ) : (
           <>

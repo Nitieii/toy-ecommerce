@@ -26,13 +26,14 @@ const useOrder = () => {
       axios
         .get(GET_API('', page).GET_ORDERS)
         .then((res) => {
+          console.log(res.data);
           if (res.data.status !== 'success') {
             dispatch(HANDLE_LOADING(false));
             return alert("Can't get orders");
           }
 
           const orders = res.data.order;
-          dispatch(SET_ORDERS(orders.result));
+          dispatch(SET_ORDERS(orders));
           dispatch(SET_TOTAL_PAGE(res.data.totalPage));
           dispatch(SET_TOTAL_LENGTH(res.data.totalLength));
           dispatch(HANDLE_LOADING(false));

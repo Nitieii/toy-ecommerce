@@ -76,6 +76,41 @@ const DataTables = (props: {
       },
     ];
   }
+  else if (tableName === 'transactions') {
+    columns = [
+      {
+        name: 'id',
+        selector: (row) => row.id,
+      }, {
+        name: 'order id',
+        selector: (row) => row.orderId,
+      },
+      {
+        name: 'status',
+        selector: (row) => row.status,
+      },
+      {
+        name: 'amount',
+        selector: (row) => row.amount,
+      },
+      {
+        name: 'type',
+        selector: (row) => row.type
+      },
+      {
+        name: 'created at',
+        selector: (row) =>
+          new Date(row.createdAt).toLocaleString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+      },
+    ];
+  }
 
   const handleSearchData = (e: any) => {
     setSearchText(e.target.value);
@@ -95,8 +130,11 @@ const DataTables = (props: {
           {tableName === 'products'
             ? 'Products'
             : tableName === 'orders'
-            ? 'Orders'
-            : 'Users'}{' '}
+              ? 'Orders'
+              : tableName === 'users'
+                ? 'Users'
+                : 'Transaction'}
+          {' '}
           Dashboard
         </h2>
 
@@ -134,8 +172,14 @@ const DataTables = (props: {
             window.location.href.includes('users')
           ) {
             window.location.href = `/admin/users/${row.id}`;
+          } else if (
+            tableName === 'transactions' &&
+            window.location.href.includes('admin')
+          ) {
+            window.location.href = `/admin/transactions/${row.id}`;
           }
-        }}
+        }
+        }
       />
     </div>
   );

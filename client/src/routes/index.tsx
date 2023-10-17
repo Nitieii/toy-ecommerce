@@ -116,6 +116,14 @@ export default function Router() {
           path: '/admin/users/:id/',
           element: <UserDetailPage />,
         },
+        {
+          path: '/admin/transactions',
+          element: <TransactionPage />,
+        },
+        {
+          path:'/admin/transactions/:id/',
+          element: <TransactionDetailPage/>
+        }
       ],
     },
     {
@@ -198,4 +206,13 @@ const UserDetailPage = Loadable(
 const MyProfilePage = Loadable(
   React.lazy(() => import('../pages/user/MyProfile.page.tsx'))
 );
+
+const TransactionDetailPage = Loadable(
+  React.lazy(() => import('../pages/admin/transactiondetail.page.tsx'))
+)
 const NotFoundPage = Loadable(React.lazy(() => import('../pages/404.tsx')));
+
+const TransactionPage = Loadable(
+  React.lazy(() => import('../pages/admin/transaction.page.tsx'))
+);
+
