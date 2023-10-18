@@ -192,7 +192,7 @@ const ProductDetailAdmin = (props: {
                   <div className='row'>
                     {keptImages.map((img, index) => (
                       <ImageItem
-                        url={img}
+                        url={'https://toyecommerceaspnetapi.azurewebsites.net' +img}
                         onRemove={() => {
                           console.log('remove');
                           handleRemoveImage('keptImages', index);
@@ -202,7 +202,7 @@ const ProductDetailAdmin = (props: {
 
                     {uploadImages.map((img: string, index: number) => (
                       <ImageItem
-                        url={img}
+                        url={'https://toyecommerceaspnetapi.azurewebsites.net' + img}
                         onRemove={() => {
                           handleRemoveImage('uploadImages', index);
                         }}
