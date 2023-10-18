@@ -31,7 +31,7 @@ function ShoppingCart() {
         <tr key={item.product.productId}>
           <td className='cart_product_img'>
             <a href={`product/${item.product.id}`}>
-              <img src={`${item.product.images[0]}`} alt='Product' />
+              <img src={`https://toyecommerceaspnetapi.azurewebsites.net${item.product.images[0]}`} alt='Product' />
             </a>
           </td>
           <td className='cart_product_desc'>

@@ -23,7 +23,10 @@ function ProductItem() {
           <div className='product-img'>
             <a href={`product/${item.id}`}>
               <img
-                src={item.images[0]}
+                src={
+                  'https://toyecommerceaspnetapi.azurewebsites.net' +
+                  item.images[0]
+                }
                 alt=''
                 style={{
                   height: '300px',

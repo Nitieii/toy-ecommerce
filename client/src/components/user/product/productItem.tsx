@@ -8,7 +8,7 @@ function ProductItem(props: Product) {
     <div key={item.id} className='single-products-catagory clearfix'>
       <a href={`${URL.DETAILS}/${item.id}`}>
         <img
-          src={`${item.images[0]}`}
+          src={`https://toyecommerceaspnetapi.azurewebsites.net${item.images[0]}`}
           alt=''
           style={{
             marginTop: '200px',

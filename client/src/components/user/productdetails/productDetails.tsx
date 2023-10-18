@@ -44,7 +44,7 @@ function ProductDetails() {
           <img
             className='d-block w-100'
             style={{ height: '400px', objectFit: 'contain' }}
-            src={`${item}`}
+            src={`https://toyecommerceaspnetapi.azurewebsites.net${item}`}
             alt='Third slide'
             key={item}
           />
@@ -63,7 +63,9 @@ function ProductDetails() {
           data-target='#product_details_slider'
           data-slide-to='0'
           style={{
-            backgroundImage: `url(${item})`,
+            backgroundImage: `url(${
+              'https://toyecommerceaspnetapi.azurewebsites.net' + item
+            })`,
           }}
         ></li>
       );

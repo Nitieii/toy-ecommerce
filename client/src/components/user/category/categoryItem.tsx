@@ -12,7 +12,7 @@ function CategoryItem(props: Category) {
         }}
       >
         <img
-          src={`${item.categoryImg}`}
+          src={`https://toyecommerceaspnetapi.azurewebsites.net${item.categoryImg}`}
           alt=''
           style={{
             marginTop: '200px',
