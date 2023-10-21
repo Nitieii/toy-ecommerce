@@ -85,9 +85,13 @@ const DataTables = (props: {
         name: 'order id',
         selector: (row) => row.orderId,
       },
+      // {
+      //   name: 'status',
+      //   selector: (row) => row.status,
+      // },
       {
-        name: 'status',
-        selector: (row) => row.status,
+        name: 'payment method',
+        selector: (row) => row.paymentMethod,
       },
       {
         name: 'amount',
