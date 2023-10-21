@@ -9,6 +9,7 @@ const OrdersUserPage = () => {
     handleGetUserOrders();
   }, []);
 
+  console.log(orders)
   const handlePageChange = () => {};
 
   return (

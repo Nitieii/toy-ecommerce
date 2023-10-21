@@ -24,6 +24,8 @@ const OrdersPage = () => {
     handleGetOrders(currentPage);
   };
 
+  console.log(orders)
+
   return (
     <DataTables
       tableName={'orders'}

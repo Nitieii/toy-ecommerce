@@ -9,7 +9,7 @@ const ProductItems = (props: { products: any }) => {
         <li className='col-md-4' key={index}>
           <figure className='itemside mb-3'>
             <div>
-              <img src={item?.product.images[0]} className='img-sm rounded' />
+              <img src={'https://toyecommerceaspnetapi.azurewebsites.net' + item?.product.images[0] } className='img-sm rounded' />
             </div>
             <figcaption className=' info align-self-center'>
               <p className='title'>{item?.product.name}</p>{' '}

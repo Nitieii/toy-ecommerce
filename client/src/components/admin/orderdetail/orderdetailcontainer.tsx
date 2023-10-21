@@ -10,8 +10,6 @@ const OrderDetaiContainer = (props: { order: Order; confirmOrder: any }) => {
 
   const handleConfirmOrder = () => {
     confirmOrder(order?.id);
-
-    window.location.reload();
   };
 
   return (
